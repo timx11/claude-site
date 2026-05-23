@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scoutingtoolz — Fußball Analyse</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div id="app">
+
+  <!-- Sidebar -->
+  <aside id="sidebar">
+    <div class="sidebar-logo" onclick="navigate('sessions')" role="button" tabindex="0" title="Zur Startseite">
+      <svg class="logo-icon-svg" width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="logo-ring" x1="0" y1="0" x2="34" y2="34" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#3b82f6"/>
+            <stop offset="100%" stop-color="#ef4444"/>
+          </linearGradient>
+          <linearGradient id="logo-dot" x1="0" y1="0" x2="34" y2="34" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#60a5fa"/>
+            <stop offset="100%" stop-color="#f87171"/>
+          </linearGradient>
+        </defs>
+        <!-- Outer glow ring -->
+        <circle cx="17" cy="17" r="15.5" fill="rgba(10,12,24,0.95)" stroke="url(#logo-ring)" stroke-width="2"/>
+        <!-- Inner field circle -->
+        <circle cx="17" cy="17" r="8" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+        <!-- Field lines -->
+        <line x1="17" y1="1.5" x2="17" y2="32.5" stroke="rgba(255,255,255,0.1)" stroke-width="0.8"/>
+        <!-- Blue arc top-left -->
+        <path d="M17 1.5 A15.5 15.5 0 0 0 1.5 17" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <!-- Red arc bottom-right -->
+        <path d="M32.5 17 A15.5 15.5 0 0 0 17 32.5" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <!-- Blue inner accent -->
+        <path d="M17 9 A8 8 0 0 0 9 17" stroke="#3b82f6" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="0.5"/>
+        <!-- Red inner accent -->
+        <path d="M25 17 A8 8 0 0 0 17 25" stroke="#ef4444" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="0.5"/>
+        <!-- Center dot -->
+        <circle cx="17" cy="17" r="3.5" fill="url(#logo-dot)"/>
+        <circle cx="17" cy="17" r="1.5" fill="white" opacity="0.95"/>
+      </svg>
+      <div class="logo-text-group">
+        <span class="logo-word">scouting<span class="logo-accent">toolz</span></span>
+        <span class="logo-tagline">Analyse · Scouting</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="nav-item active" data-page="sessions">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        Sessions
+      </a>
+      <a class="nav-item" data-page="analysis">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+        Matchanalyse
+      </a>
+      <a class="nav-item" data-page="players">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Spielerprofile
+      </a>
+      <a class="nav-item" data-page="reports">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        Reports
+      </a>
+    </nav>
+
+    <div class="sidebar-sessions-header">
+      <span>Sessions</span>
+      <button class="btn-icon-sm" id="btn-new-session" title="Neue Session">+</button>
+    </div>
+    <div id="sidebar-session-list"></div>
+  </aside>
+
+  <!-- Main -->
+  <main id="main-content">
+
+    <!-- SESSIONS PAGE -->
+    <section id="page-sessions" class="page active">
+      <div class="page-header">
+        <div>
+          <h1>Sessions</h1>
+          <p class="page-sub">Spiele, Trainings und Gegneranalysen</p>
+        </div>
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-secondary" id="btn-anleitung">Anleitung</button>
+          <button class="btn btn-primary" id="btn-create-session">+ Neue Session</button>
+        </div>
+      </div>
+      <div id="sessions-grid" class="sessions-list-wrap"></div>
+    </section>
+
+    <!-- ANALYSIS PAGE -->
+    <section id="page-analysis" class="page">
+      <div class="analysis-header">
+        <div>
+          <h1 id="session-info">Keine Session aktiv</h1>
+          <p class="page-sub" id="session-meta"></p>
+        </div>
+        <div class="analysis-header-actions">
+          <label class="btn btn-secondary" for="video-upload">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            Video laden
+          </label>
+          <input type="file" id="video-upload" accept="video/*" hidden />
+        </div>
+      </div>
+
+      <div class="no-session-hint" id="no-session-hint">
+        Öffne eine Session aus der Seitenleiste oder <button class="link-btn" id="btn-open-session">erstelle eine neue</button>.
+      </div>
+
+      <div class="analysis-layout" id="analysis-layout">
+        <!-- LEFT: Video -->
+        <div class="analysis-left">
+          <!-- Periodenbalken OBEN (über Video) -->
+          <div class="period-bar">
+            <div class="period-format-btns">
+              <button class="pfmt active" id="pfmt-halves" onclick="setPeriodMode('halves')">HZ</button>
+              <button class="pfmt" id="pfmt-thirds" onclick="setPeriodMode('thirds')">Drittel</button>
+            </div>
+            <div id="period-pills" class="period-pills"></div>
+            <button class="btn btn-sm period-set-btn" id="btn-set-period">Zeit setzen</button>
+          </div>
+
+          <div class="video-wrapper">
+            <div id="video-placeholder" class="video-placeholder">
+              <label for="video-upload" class="upload-label">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.5"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+                <span>Video hochladen</span>
+                <span class="upload-hint">MP4, MOV, AVI</span>
+              </label>
+            </div>
+            <video id="video-player" controls></video>
+            <div class="timeline-pro" id="timeline-pro">
+              <div class="tl-ruler" id="tl-ruler"></div>
+              <div class="tl-track-area">
+                <div id="tl-period-bands"></div>
+                <div id="tl-markers"></div>
+                <div class="tl-playhead" id="tl-playhead"></div>
+              </div>
+            </div>
+            <div class="speed-controls" id="speed-controls">
+              <span class="speed-label">Geschwindigkeit:</span>
+              <button class="speed-btn active" data-speed="1">×1</button>
+              <button class="speed-btn" data-speed="0.5">×0.5</button>
+              <button class="speed-btn" data-speed="1.5">×1.5</button>
+              <button class="speed-btn" data-speed="2">×2</button>
+            </div>
+          </div>
+
+          <div class="tag-bar">
+            <span class="tag-bar-label">Tag:</span>
+            <button class="tag-btn" data-type="schuss" style="--c:#f87171">Schuss</button>
+            <button class="tag-btn" data-type="1vs1" style="--c:#fb923c">1vs1</button>
+            <button class="tag-btn" data-type="pass" style="--c:#60a5fa">Pass</button>
+            <button class="tag-btn" data-type="flanke" style="--c:#22d3ee">Flanke</button>
+            <button class="tag-btn" data-type="vorlage" style="--c:#34d399">Vorlage</button>
+            <button class="tag-btn" data-type="fehler" style="--c:#94a3b8">Fehler</button>
+            <button class="tag-btn" data-type="markierung" style="--c:#a78bfa">Markierung</button>
+            <button class="tag-btn" data-type="tor" style="--c:#fbbf24">Tor</button>
+            <button class="tag-btn" data-type="gegentor" style="--c:#f472b6">Gegentor</button>
+          </div>
+
+          <div id="mark-colors" class="mark-colors">
+            <span class="tag-bar-label">Farbe:</span>
+            <button class="mark-color-btn active" data-color="#8b5cf6" style="--mc:#8b5cf6"></button>
+            <button class="mark-color-btn" data-color="#ef4444" style="--mc:#ef4444"></button>
+            <button class="mark-color-btn" data-color="#3b82f6" style="--mc:#3b82f6"></button>
+            <button class="mark-color-btn" data-color="#10b981" style="--mc:#10b981"></button>
+            <button class="mark-color-btn" data-color="#f97316" style="--mc:#f97316"></button>
+            <button class="mark-color-btn" data-color="#fbbf24" style="--mc:#fbbf24"></button>
+            <button class="mark-color-btn" data-color="#ffffff" style="--mc:#ffffff"></button>
+          </div>
+
+          <!-- Aktiver Tag + Spieler (erscheint wenn Tag aktiv) -->
+          <div id="active-tag-bar" class="active-tag-bar hidden">
+            <span id="atb-badge" class="atb-badge"></span>
+            <select id="tag-player-select" class="select select-sm atb-player">
+              <option value="">— kein Spieler —</option>
+            </select>
+            <span class="atb-esc">ESC abbrechen</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: Field + Controls + Tags -->
+        <div class="analysis-right">
+          <div class="field-wrap">
+            <div id="field-hint" class="field-hint"></div>
+            <svg id="football-field" viewBox="0 0 400 260" class="football-field">
+              <!-- Grass -->
+              <rect width="400" height="260" fill="#1a4a0a" rx="4"/>
+              <!-- Stripes -->
+              <rect x="0" y="0" width="44" height="260" fill="#1e5610" opacity="0.5"/>
+              <rect x="88" y="0" width="44" height="260" fill="#1e5610" opacity="0.5"/>
+              <rect x="176" y="0" width="44" height="260" fill="#1e5610" opacity="0.5"/>
+              <rect x="264" y="0" width="44" height="260" fill="#1e5610" opacity="0.5"/>
+              <rect x="352" y="0" width="44" height="260" fill="#1e5610" opacity="0.5"/>
+              <!-- Boundary -->
+              <rect x="6" y="6" width="388" height="248" fill="none" stroke="white" stroke-width="2"/>
+              <!-- Center line -->
+              <line x1="200" y1="6" x2="200" y2="254" stroke="white" stroke-width="2"/>
+              <!-- Center circle -->
+              <circle cx="200" cy="130" r="36" fill="none" stroke="white" stroke-width="2"/>
+              <circle cx="200" cy="130" r="3" fill="white"/>
+              <!-- Left penalty box -->
+              <rect x="6" y="72" width="62" height="116" fill="none" stroke="white" stroke-width="2"/>
+              <!-- Left goal box -->
+              <rect x="6" y="100" width="24" height="60" fill="none" stroke="white" stroke-width="2"/>
+              <!-- Left goal -->
+              <rect x="0" y="108" width="6" height="44" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="1.5"/>
+              <!-- Left penalty spot -->
+              <circle cx="46" cy="130" r="2.5" fill="white"/>
+              <!-- Right penalty box -->
+              <rect x="332" y="72" width="62" height="116" fill="none" stroke="white" stroke-width="2"/>
+              <!-- Right goal box -->
+              <rect x="370" y="100" width="24" height="60" fill="none" stroke="white" stroke-width="2"/>
+              <!-- Right goal -->
+              <rect x="394" y="108" width="6" height="44" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="1.5"/>
+              <!-- Right penalty spot -->
+              <circle cx="354" cy="130" r="2.5" fill="white"/>
+
+              <!-- Tag dots + markings layer -->
+              <g id="field-dots"></g>
+              <g id="field-arrows" pointer-events="none"></g>
+              <g id="field-goal-labels" pointer-events="none"></g>
+              <g id="field-arrow-preview" pointer-events="none"></g>
+
+              <!-- Click overlay -->
+              <rect id="field-overlay" x="6" y="6" width="388" height="248" fill="transparent" style="cursor:crosshair"/>
+
+              <!-- Cursor indicator -->
+              <circle id="field-cursor" cx="-99" cy="-99" r="6" fill="transparent" stroke="rgba(255,255,255,0.8)" stroke-width="1.5" stroke-dasharray="4 2" pointer-events="none" opacity="0"/>
+              <text id="field-coords" x="-99" y="-99" fill="white" font-size="9" font-weight="600" font-family="system-ui" text-anchor="middle" pointer-events="none" opacity="0"></text>
+            </svg>
+            <div class="field-legend">
+              <span>← Eigenes Tor</span>
+              <span>Gegnerisches Tor →</span>
+            </div>
+          </div>
+
+          <!-- Goal quick-form -->
+          <div id="goal-form" class="goal-form hidden">
+            <div class="gf-header">
+              <span id="gf-title" class="goal-form-title">Tor — Details</span>
+              <div class="goal-form-actions">
+                <button class="btn btn-primary btn-sm" id="gf-save">Speichern</button>
+                <button class="btn-icon-sm" id="gf-skip" title="Überspringen">✕</button>
+              </div>
+            </div>
+            <div class="gf-row">
+              <label class="gf-label">Vorlage</label>
+              <select id="gf-assist" class="select select-sm" style="flex:1;min-width:0"></select>
+            </div>
+            <div class="gf-row">
+              <label class="gf-label">Art</label>
+              <div class="gf-foot-btns">
+                <button class="gf-foot-btn active" data-foot="">—</button>
+                <button class="gf-foot-btn" data-foot="stark">Stark</button>
+                <button class="gf-foot-btn" data-foot="schwach">Schwach</button>
+                <button class="gf-foot-btn" data-foot="kopf">Kopf</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="right-controls">
+            <div class="filter-row">
+              <span class="filter-label">Filter:</span>
+              <select id="filter-action" class="select select-sm">
+                <option value="">Alle Aktionen</option>
+                <option value="schuss">Schuss</option>
+                <option value="1vs1">1vs1</option>
+                <option value="pass">Pass</option>
+                <option value="flanke">Flanke</option>
+                <option value="fehler">Fehler</option>
+                <option value="markierung">Markierung</option>
+                <option value="tor">Tor</option>
+                <option value="gegentor">Gegentor</option>
+              </select>
+              <select id="filter-player" class="select select-sm">
+                <option value="">Alle Spieler</option>
+              </select>
+            </div>
+          </div>
+
+          <div id="tag-list" class="tag-list"></div>
+        </div>
+      </div>
+
+      <!-- Stats bar -->
+      <div class="stats-bar">
+        <div id="stats-cards" class="stats-cards"></div>
+      </div>
+    </section>
+
+    <!-- PLAYERS PAGE -->
+    <section id="page-players" class="page">
+      <div class="page-header">
+        <div>
+          <h1>Spielerprofile</h1>
+          <p class="page-sub">Spieler anlegen und mit Tags verknüpfen</p>
+        </div>
+        <button class="btn btn-primary" id="btn-add-player">+ Spieler hinzufügen</button>
+      </div>
+      <div id="players-grid"></div>
+    </section>
+
+    <!-- REPORTS PAGE -->
+    <section id="page-reports" class="page">
+      <div class="page-header">
+        <div>
+          <h1>Reports &amp; Insights</h1>
+          <p class="page-sub">Statistiken über alle Sessions</p>
+        </div>
+        <button class="btn btn-secondary" onclick="exportExcel()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:6px;vertical-align:-2px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Excel Export
+        </button>
+      </div>
+      <div id="reports-content"></div>
+    </section>
+
+  </main>
+</div>
+
+<!-- Modal -->
+<div id="modal-overlay" class="modal-overlay hidden">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="modal-title"></h2>
+      <button id="modal-close" class="btn-icon-sm">✕</button>
+    </div>
+    <div id="modal-body" class="modal-body"></div>
+  </div>
+</div>
+
+<script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

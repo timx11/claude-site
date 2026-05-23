@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Outreach Cockpit — WebStudio Duisburg</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" />
+  <link rel="stylesheet" href="outreach.css" />
+</head>
+<body>
+
+  <!-- ─── HEADER ─── -->
+  <header class="oc-header">
+    <div class="oc-container">
+      <div class="oc-header-left">
+        <a href="../index.html" class="oc-back" title="Zurück zur Website">←</a>
+        <div>
+          <h1 class="oc-title">Outreach Cockpit</h1>
+          <span class="oc-subtitle">Lead-Management &amp; Cold-Outreach für Duisburg &amp; Umgebung</span>
+        </div>
+      </div>
+      <div class="oc-header-actions">
+        <button class="oc-btn oc-btn-ghost" id="btn-templates">Vorlagen</button>
+        <button class="oc-btn oc-btn-ghost" id="btn-import">CSV Import</button>
+        <button class="oc-btn oc-btn-ghost" id="btn-export">CSV Export</button>
+        <button class="oc-btn oc-btn-primary" id="btn-add-lead">+ Neuer Lead</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ─── STATS BAR ─── -->
+  <section class="oc-stats">
+    <div class="oc-container oc-stats-grid" id="stats-grid">
+      <!-- gefüllt durch JS -->
+    </div>
+  </section>
+
+  <!-- ─── FILTERS ─── -->
+  <section class="oc-filters">
+    <div class="oc-container">
+      <div class="oc-filter-row">
+        <input type="search" class="oc-search" id="search-input" placeholder="🔍 Suche nach Firma, E-Mail, Stadt…" />
+        <select class="oc-select" id="filter-status">
+          <option value="">Alle Status</option>
+          <option value="neu">Neu</option>
+          <option value="kontaktiert">Kontaktiert</option>
+          <option value="folge">Follow-up nötig</option>
+          <option value="interessiert">Interessiert</option>
+          <option value="kunde">Kunde</option>
+          <option value="abgelehnt">Abgelehnt</option>
+        </select>
+        <select class="oc-select" id="filter-branche">
+          <option value="">Alle Branchen</option>
+        </select>
+        <select class="oc-select" id="filter-stadt">
+          <option value="">Alle Städte</option>
+        </select>
+        <button class="oc-btn oc-btn-ghost oc-btn-sm" id="btn-clear-filter">Filter löschen</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── LEAD-LISTE ─── -->
+  <main class="oc-main">
+    <div class="oc-container">
+      <div class="oc-table-wrap">
+        <table class="oc-table">
+          <thead>
+            <tr>
+              <th style="width:32px"></th>
+              <th>Firma</th>
+              <th>Branche</th>
+              <th>Stadt</th>
+              <th>E-Mail</th>
+              <th>Status</th>
+              <th>Letzter Kontakt</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="leads-tbody">
+            <!-- gefüllt durch JS -->
+          </tbody>
+        </table>
+        <div class="oc-empty" id="empty-state">
+          <div class="oc-empty-icon">📋</div>
+          <h3>Noch keine Leads</h3>
+          <p>Lege deinen ersten Lead an oder importiere eine CSV-Datei.</p>
+          <button class="oc-btn oc-btn-primary" onclick="document.getElementById('btn-add-lead').click()">+ Ersten Lead anlegen</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ─── LEAD-DETAIL DRAWER ─── -->
+  <aside class="oc-drawer" id="lead-drawer">
+    <div class="oc-drawer-header">
+      <div>
+        <h2 id="drawer-title">Lead</h2>
+        <span class="oc-drawer-subtitle" id="drawer-subtitle"></span>
+      </div>
+      <button class="oc-btn-icon" id="btn-close-drawer">✕</button>
+    </div>
+
+    <div class="oc-drawer-body">
+
+      <!-- Lead-Felder -->
+      <section class="oc-drawer-section">
+        <h3 class="oc-section-title">Lead-Daten</h3>
+        <div class="oc-form-grid">
+          <label><span>Firma *</span><input type="text" id="d-firma" /></label>
+          <label><span>Ansprechpartner</span><input type="text" id="d-name" placeholder="z.B. Frau Müller" /></label>
+          <label><span>E-Mail *</span><input type="email" id="d-email" /></label>
+          <label><span>Telefon</span><input type="tel" id="d-telefon" /></label>
+          <label><span>Branche</span><input type="text" id="d-branche" placeholder="z.B. Friseur" list="branche-list" /></label>
+          <label><span>Stadt</span><input type="text" id="d-stadt" placeholder="z.B. Duisburg" list="stadt-list" /></label>
+          <label class="oc-form-full"><span>Bestehende Website (optional)</span><input type="text" id="d-website" placeholder="z.B. example.de" /></label>
+          <label class="oc-form-full"><span>Status</span>
+            <select id="d-status">
+              <option value="neu">Neu</option>
+              <option value="kontaktiert">Kontaktiert</option>
+              <option value="folge">Follow-up nötig</option>
+              <option value="interessiert">Interessiert</option>
+              <option value="kunde">Kunde</option>
+              <option value="abgelehnt">Abgelehnt</option>
+            </select>
+          </label>
+          <label class="oc-form-full"><span>Notizen</span><textarea id="d-notizen" rows="2" placeholder="Was ist beim Kontakt aufgefallen?"></textarea></label>
+        </div>
+        <div class="oc-drawer-actions">
+          <button class="oc-btn oc-btn-primary" id="btn-save-lead">Speichern</button>
+          <button class="oc-btn oc-btn-danger" id="btn-delete-lead">Lead löschen</button>
+        </div>
+      </section>
+
+      <!-- E-Mail Composer -->
+      <section class="oc-drawer-section">
+        <h3 class="oc-section-title">E-Mail vorbereiten</h3>
+        <div class="oc-form-grid">
+          <label class="oc-form-full"><span>Vorlage</span>
+            <select id="d-template">
+              <!-- gefüllt durch JS -->
+            </select>
+          </label>
+          <label class="oc-form-full"><span>Betreff</span><input type="text" id="d-subject" /></label>
+          <label class="oc-form-full"><span>Nachricht</span><textarea id="d-body" rows="14"></textarea></label>
+        </div>
+
+        <div class="oc-mail-actions">
+          <a href="#" class="oc-btn oc-btn-primary" id="btn-open-gmail" target="_blank" rel="noopener">📧 In Gmail öffnen</a>
+          <a href="#" class="oc-btn oc-btn-secondary" id="btn-open-mailto">Standard-Mail öffnen</a>
+          <button class="oc-btn oc-btn-secondary" id="btn-copy-mail">📋 Kopieren</button>
+        </div>
+        <div class="oc-hint">
+          Nach dem Senden klicke auf <strong>„Als kontaktiert markieren"</strong> — dann erkennt das Cockpit, dass du Follow-ups planen kannst.
+        </div>
+        <div class="oc-drawer-actions">
+          <button class="oc-btn oc-btn-success" id="btn-mark-contacted">✓ Als kontaktiert markieren</button>
+        </div>
+      </section>
+
+    </div>
+  </aside>
+
+  <!-- ─── MODAL: NEW LEAD / BULK ADD ─── -->
+  <div class="oc-modal hidden" id="modal-add">
+    <div class="oc-modal-card oc-modal-large">
+      <div class="oc-modal-header">
+        <h2>Neue Leads</h2>
+        <button class="oc-btn-icon" data-close-modal>✕</button>
+      </div>
+      <div class="oc-modal-body">
+        <div class="oc-tabs">
+          <button class="oc-tab active" data-tab="single">Einzelner Lead</button>
+          <button class="oc-tab" data-tab="bulk">Mehrere auf einmal</button>
+        </div>
+
+        <div class="oc-tab-content active" data-tab-content="single">
+          <div class="oc-form-grid">
+            <label><span>Firma *</span><input type="text" id="add-firma" /></label>
+            <label><span>Ansprechpartner</span><input type="text" id="add-name" /></label>
+            <label><span>E-Mail *</span><input type="email" id="add-email" /></label>
+            <label><span>Telefon</span><input type="tel" id="add-telefon" /></label>
+            <label><span>Branche</span><input type="text" id="add-branche" list="branche-list" /></label>
+            <label><span>Stadt</span><input type="text" id="add-stadt" list="stadt-list" /></label>
+            <label class="oc-form-full"><span>Bestehende Website</span><input type="text" id="add-website" placeholder="example.de" /></label>
+            <label class="oc-form-full"><span>Notizen</span><textarea id="add-notizen" rows="2"></textarea></label>
+          </div>
+          <button class="oc-btn oc-btn-primary oc-btn-block" id="btn-confirm-add">+ Lead hinzufügen</button>
+        </div>
+
+        <div class="oc-tab-content" data-tab-content="bulk">
+          <p class="oc-modal-hint">
+            Eine Zeile pro Lead. Format: <code>Firma; E-Mail; Branche; Stadt; Telefon; Website</code><br />
+            Telefon und Website sind optional. Trennzeichen: Semikolon, Tab oder Komma.
+          </p>
+          <textarea id="bulk-input" rows="10" placeholder="Friseur Müller; info@friseur-mueller.de; Friseur; Duisburg; 0203 12345; friseur-mueller.de
+Bäckerei Schmidt; kontakt@baeckerei-schmidt.de; Bäckerei; Mülheim
+KFZ-Werkstatt Bauer; bauer@kfz-bauer.de; Handwerker; Oberhausen"></textarea>
+          <button class="oc-btn oc-btn-primary oc-btn-block" id="btn-confirm-bulk">Alle hinzufügen</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── MODAL: TEMPLATES ─── -->
+  <div class="oc-modal hidden" id="modal-templates">
+    <div class="oc-modal-card oc-modal-large">
+      <div class="oc-modal-header">
+        <h2>E-Mail Vorlagen</h2>
+        <button class="oc-btn-icon" data-close-modal>✕</button>
+      </div>
+      <div class="oc-modal-body">
+        <p class="oc-modal-hint">
+          Verwende diese Platzhalter — sie werden beim Erstellen der E-Mail automatisch ersetzt:<br />
+          <code>{firma}</code> <code>{name}</code> <code>{anrede}</code> <code>{branche}</code> <code>{stadt}</code> <code>{website}</code>
+        </p>
+
+        <div class="oc-templates-list" id="templates-list">
+          <!-- gefüllt durch JS -->
+        </div>
+
+        <button class="oc-btn oc-btn-secondary oc-btn-block" id="btn-add-template">+ Neue Vorlage</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── MODAL: CSV IMPORT ─── -->
+  <div class="oc-modal hidden" id="modal-import">
+    <div class="oc-modal-card">
+      <div class="oc-modal-header">
+        <h2>CSV importieren</h2>
+        <button class="oc-btn-icon" data-close-modal>✕</button>
+      </div>
+      <div class="oc-modal-body">
+        <p class="oc-modal-hint">
+          Erste Zeile = Spaltennamen. Erwartete Spalten:
+          <code>firma, email, branche, stadt, name, telefon, website, notizen, status</code>
+        </p>
+        <input type="file" id="csv-file" accept=".csv,.txt" />
+        <p class="oc-modal-hint" style="margin-top:12px">Oder direkt einfügen:</p>
+        <textarea id="csv-paste" rows="8" placeholder="firma,email,branche,stadt&#10;Friseur Müller,info@friseur-mueller.de,Friseur,Duisburg"></textarea>
+        <button class="oc-btn oc-btn-primary oc-btn-block" id="btn-confirm-import">Importieren</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── TOAST ─── -->
+  <div class="oc-toast" id="toast"></div>
+
+  <!-- ─── Datalists ─── -->
+  <datalist id="branche-list">
+    <option value="Friseur"></option>
+    <option value="Kosmetikstudio"></option>
+    <option value="Handwerker"></option>
+    <option value="KFZ-Werkstatt"></option>
+    <option value="Reinigungsfirma"></option>
+    <option value="Fahrschule"></option>
+    <option value="Caterer"></option>
+    <option value="Bäckerei"></option>
+    <option value="Fotograf"></option>
+    <option value="Gastronomie"></option>
+    <option value="Immobilienmakler"></option>
+    <option value="Arztpraxis"></option>
+    <option value="Anwalt"></option>
+    <option value="Steuerberater"></option>
+    <option value="Fitnessstudio"></option>
+  </datalist>
+  <datalist id="stadt-list">
+    <option value="Duisburg"></option>
+    <option value="Mülheim an der Ruhr"></option>
+    <option value="Oberhausen"></option>
+    <option value="Moers"></option>
+    <option value="Krefeld"></option>
+    <option value="Düsseldorf"></option>
+    <option value="Ratingen"></option>
+    <option value="Dinslaken"></option>
+    <option value="Rheinberg"></option>
+    <option value="Bottrop"></option>
+    <option value="Essen"></option>
+  </datalist>
+
+  <script src="outreach.js"></script>
+</body>
+</html>
