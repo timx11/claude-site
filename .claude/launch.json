@@ -1,0 +1,23 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "ScouTool",
+      "runtimeExecutable": "powershell",
+      "runtimeArgs": ["-NoProfile", "-Command", "& { $l=New-Object System.Net.HttpListener; $l.Prefixes.Add('http://localhost:3000/'); $l.Start(); while($l.IsListening){ $c=$l.GetContext(); $p=$c.Request.Url.LocalPath.TrimStart('/'); if(!$p){$p='index.html'}; $f=Join-Path 'C:\\Users\\timul\\Claude Site\\scoutool' $p; $r=$c.Response; if(Test-Path $f -PathType Leaf){ $e=[IO.Path]::GetExtension($f); $r.ContentType=if($e-eq'.html'){'text/html'}elseif($e-eq'.css'){'text/css'}elseif($e-eq'.js'){'application/javascript'}else{'text/plain'}; $b=[IO.File]::ReadAllBytes($f); $r.ContentLength64=$b.Length; $r.OutputStream.Write($b,0,$b.Length) }else{$r.StatusCode=404}; $r.Close() } }"],
+      "port": 3000
+    },
+    {
+      "name": "WebStudio",
+      "runtimeExecutable": "powershell",
+      "runtimeArgs": ["-NoProfile", "-Command", "& { $l=New-Object System.Net.HttpListener; $l.Prefixes.Add('http://localhost:3001/'); $l.Start(); while($l.IsListening){ $c=$l.GetContext(); $p=$c.Request.Url.LocalPath.TrimStart('/'); if(!$p){$p='index.html'}; $f=Join-Path 'C:\\Users\\timul\\Claude Site\\webstudio' $p; $r=$c.Response; if(Test-Path $f -PathType Leaf){ $e=[IO.Path]::GetExtension($f); $r.ContentType=if($e-eq'.html'){'text/html'}elseif($e-eq'.css'){'text/css'}elseif($e-eq'.js'){'application/javascript'}else{'text/plain'}; $b=[IO.File]::ReadAllBytes($f); $r.ContentLength64=$b.Length; $r.OutputStream.Write($b,0,$b.Length) }else{$r.StatusCode=404}; $r.Close() } }"],
+      "port": 3001
+    },
+    {
+      "name": "ViralStudio",
+      "runtimeExecutable": "powershell",
+      "runtimeArgs": ["-NoProfile", "-Command", "& { $l=New-Object System.Net.HttpListener; $l.Prefixes.Add('http://localhost:3002/'); $l.Start(); while($l.IsListening){ $c=$l.GetContext(); $p=$c.Request.Url.LocalPath.TrimStart('/'); if(!$p){$p='index.html'}; $f=Join-Path 'C:\\Users\\timul\\Claude Site\\viral-studio' $p; $r=$c.Response; if(Test-Path $f -PathType Leaf){ $e=[IO.Path]::GetExtension($f); $r.ContentType=if($e-eq'.html'){'text/html'}elseif($e-eq'.css'){'text/css'}elseif($e-eq'.js'){'application/javascript'}else{'text/plain'}; $b=[IO.File]::ReadAllBytes($f); $r.ContentLength64=$b.Length; $r.OutputStream.Write($b,0,$b.Length) }else{$r.StatusCode=404}; $r.Close() } }"],
+      "port": 3002
+    }
+  ]
+}
