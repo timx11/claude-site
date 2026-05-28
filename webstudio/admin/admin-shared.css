@@ -339,3 +339,8 @@ a { color: var(--ad-primary); }
 
 /* ── Footer-Hinweis ──────────────────────────────────────────── */
 .ad-foot { text-align: center; color: var(--ad-text-soft); font-size: 12px; margin-top: 40px; }
+
+/* ── Embed-Mode (im 3D-Studio-OS-Fenster) ─────────────────── */
+body.ad-embed-mode .ad-page { padding-top: 20px; }
+body.ad-embed-mode #ad-topnav-mount { display: none; }
+body.ad-embed-mode { background: #1a1626; }

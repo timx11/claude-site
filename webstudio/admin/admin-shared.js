@@ -208,6 +208,12 @@ function renderTopNav(activeKey) {
 }
 
 function mountTopNav(activeKey) {
+  // Wenn Modul in OS-Fenster (?embed=1), Top-Nav weglassen
+  if (getQuery('embed') === '1') {
+    document.body.classList.add('ad-embed-mode');
+    ensureSettingsModal();
+    return;
+  }
   const mount = document.getElementById('ad-topnav-mount');
   if (mount) mount.innerHTML = renderTopNav(activeKey);
   // Settings-Modal sicherstellen
