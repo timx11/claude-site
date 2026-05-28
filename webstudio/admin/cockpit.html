@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Cockpit — WebStudio Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" />
+  <link rel="stylesheet" href="admin-shared.css" />
+</head>
+<body>
+
+<div id="ad-topnav-mount"></div>
+
+<main class="ad-page">
+
+  <div class="ad-page-header">
+    <div>
+      <h1 class="ad-page-title">Cockpit</h1>
+      <p class="ad-page-sub">Pipeline · Leads · KI-Build — alles auf einen Blick</p>
+    </div>
+    <div class="ad-page-actions">
+      <a href="mapscout.html" class="ad-btn ad-btn-primary">➕ Neuer Lead aus Maps</a>
+      <a href="outreach.html" class="ad-btn">📋 Outreach-CRM</a>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="ad-card ad-card-pad" style="margin-bottom: 18px;">
+    <div id="stats-grid" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px;"></div>
+  </div>
+
+  <!-- Pipeline -->
+  <div class="ad-card" style="margin-bottom: 24px;">
+    <div class="ad-card-h">
+      <h2>Pipeline</h2>
+      <span class="ad-card-sub" id="pipeline-meta">—</span>
+    </div>
+    <div class="ad-card-pad">
+      <div class="ad-pipeline" id="pipeline"></div>
+    </div>
+  </div>
+
+  <!-- Aktiver Lead -->
+  <div class="ad-card" id="lead-detail" style="display:none;">
+    <div class="ad-card-h">
+      <h2 id="ld-title">Lead</h2>
+      <button class="ad-btn ad-btn-sm ad-btn-ghost" onclick="closeLead()">✕ schließen</button>
+    </div>
+    <div class="ad-card-pad" id="ld-body"></div>
+  </div>
+
+  <p class="ad-foot">
+    Tipp: Du erreichst MapScout · PitchSheet · Wunschformular auch direkt über die Navigation oben.
+  </p>
+</main>
+
+<script src="admin-shared.js"></script>
+<script src="cockpit.js"></script>
+</body>
+</html>

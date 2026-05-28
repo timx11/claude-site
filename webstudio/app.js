@@ -1,6 +1,6 @@
 'use strict';
 
-/* ── Sticky header shadow on scroll ── */
+/* ── Sticky header shadow ── */
 const header = document.getElementById('site-header');
 const onScroll = () => {
   if (!header) return;
@@ -10,116 +10,82 @@ window.addEventListener('scroll', onScroll, { passive: true });
 onScroll();
 
 /* ── Mobile menu ── */
-const navToggle = document.getElementById('nav-toggle');
-const mobileMenu = document.getElementById('mobile-menu');
-if (navToggle && mobileMenu) {
-  navToggle.addEventListener('click', () => {
-    const open = navToggle.classList.toggle('open');
-    mobileMenu.classList.toggle('open', open);
-    navToggle.setAttribute('aria-expanded', String(open));
+const toggle = document.getElementById('nav-toggle');
+const menu   = document.getElementById('mobile-menu');
+if (toggle && menu) {
+  toggle.addEventListener('click', () => {
+    const open = menu.classList.toggle('is-open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
   });
-  mobileMenu.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => {
-      navToggle.classList.remove('open');
-      mobileMenu.classList.remove('open');
-      navToggle.setAttribute('aria-expanded', 'false');
-    });
-  });
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    menu.classList.remove('is-open');
+    toggle.setAttribute('aria-expanded', 'false');
+  }));
 }
 
-/* ── FAQ: keep only one open at a time ── */
-document.querySelectorAll('.faq-item').forEach(item => {
-  item.addEventListener('toggle', () => {
-    if (item.open) {
-      document.querySelectorAll('.faq-item').forEach(other => {
-        if (other !== item) other.open = false;
-      });
-    }
-  });
-});
+/* ── CRT carousel ── */
+(() => {
+  const frames = document.querySelectorAll('#crt-frames .mockup');
+  const dots   = document.querySelectorAll('#crt-dots .crt-dot');
+  if (!frames.length) return;
 
-/* ── Year in footer ── */
+  let i = 0;
+  let timer = null;
+
+  function show(idx) {
+    frames.forEach((f, n) => f.classList.toggle('active', n === idx));
+    dots.forEach((d, n)   => d.classList.toggle('active', n === idx));
+    i = idx;
+  }
+  function next() { show((i + 1) % frames.length); }
+  function start() { stop(); timer = setInterval(next, 4200); }
+  function stop()  { if (timer) { clearInterval(timer); timer = null; } }
+
+  dots.forEach((d, n) => {
+    d.addEventListener('click', () => { show(n); start(); });
+  });
+
+  // Bei Hover über den Monitor pausieren
+  const crt = document.querySelector('.crt');
+  if (crt) {
+    crt.addEventListener('mouseenter', stop);
+    crt.addEventListener('mouseleave', start);
+  }
+
+  start();
+})();
+
+/* ── Jahr im Footer ── */
 const yearEl = document.getElementById('year');
-if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-/* ── Contact form: build mailto and confirm ── */
-const form = document.getElementById('contact-form');
-const successEl = document.getElementById('form-success');
-if (form) {
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
+/* ── Kontaktformular (öffnet mailto) ── */
+function submitContact(e) {
+  e.preventDefault();
+  const f = e.target;
+  const get = n => (f.elements[n]?.value || '').trim();
+  const name = get('name');
+  const firma = get('firma');
+  const email = get('email');
+  const telefon = get('telefon');
+  const nachricht = get('nachricht');
 
-    const data = new FormData(form);
-    const name    = (data.get('name')    || '').toString().trim();
-    const contact = (data.get('contact') || '').toString().trim();
-    const branche = (data.get('branche') || '').toString().trim();
-    const paket   = (data.get('paket')   || '').toString().trim();
-    const message = (data.get('message') || '').toString().trim();
+  const subject = `Anfrage von ${name}${firma ? ' · ' + firma : ''}`;
+  const body =
+`Hallo Tim,
 
-    if (!name || !contact || !message) {
-      form.querySelectorAll('[required]').forEach(input => {
-        if (!input.value.trim()) {
-          input.style.borderColor = '#dc2626';
-          input.style.background = '#fef2f2';
-          setTimeout(() => {
-            input.style.borderColor = '';
-            input.style.background = '';
-          }, 2500);
-        }
-      });
-      return;
-    }
+${nachricht}
 
-    const subject = `Webseiten-Anfrage von ${name}`;
-    const body = [
-      `Name: ${name}`,
-      `Kontakt: ${contact}`,
-      branche ? `Branche / Unternehmen: ${branche}` : '',
-      paket   ? `Paket: ${paket}` : '',
-      '',
-      'Nachricht:',
-      message,
-    ].filter(Boolean).join('\n');
+— — —
+Name:    ${name}
+Firma:   ${firma}
+E-Mail:  ${email}
+Telefon: ${telefon}
 
-    const mailto = `mailto:weblabduisburg@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.location.href = mailto;
+(Gesendet über tim-ulrich-webstudio.de)`;
 
-    if (successEl) {
-      successEl.classList.add('visible');
-      form.reset();
-      setTimeout(() => successEl.classList.remove('visible'), 8000);
-    }
-  });
+  const url = `mailto:weblabduisburg@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  window.location.href = url;
+  return false;
 }
-
-/* ── Reveal-on-scroll (subtle) ── */
-if ('IntersectionObserver' in window) {
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
-        io.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-
-  document.querySelectorAll('.pkg, .feature, .step, .branche, .faq-item').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(16px)';
-    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-    io.observe(el);
-  });
-}
-
-/* ── Hide floating WhatsApp button when contact section is in view ── */
-const floatBtn = document.querySelector('.float-whatsapp');
-const contactSection = document.getElementById('kontakt');
-if (floatBtn && contactSection && 'IntersectionObserver' in window) {
-  const io2 = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      floatBtn.classList.toggle('hidden', entry.isIntersecting);
-    });
-  }, { threshold: 0.15 });
-  io2.observe(contactSection);
-}
+window.submitContact = submitContact;
