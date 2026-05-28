@@ -256,6 +256,7 @@ class Studio3D {
     this.buildDesk();
     this.buildPC();
     this.buildPeripherals();
+    this.buildDeskLamp();
     this.buildWallArt();
     this.buildShelf();
     this.buildLights();
@@ -1065,216 +1066,356 @@ class Studio3D {
     }
   }
 
-  /* ── WAND-DESIGN: moderne LED-Komposition ───────────────── */
-  buildWallArt() {
-    // ── Horizontale "Shelf-Light"-Leiste oberhalb des Monitors ──
-    const shelfLight = new THREE.Mesh(
-      new THREE.PlaneGeometry(3.6, 0.05),
-      new THREE.MeshBasicMaterial({ color: 0xa050ff })
-    );
-    shelfLight.position.set(0, 3.45, -2.97);
-    this.scene.add(shelfLight);
-    const shelfLightLight = new THREE.PointLight(0xa050ff, 1.6, 5, 1.5);
-    shelfLightLight.position.set(0, 3.45, -2.4);
-    this.scene.add(shelfLightLight);
+  /* ── ARCHITEKTEN-SCHREIBTISCHLAMPE (mit warmem Spot) ─── */
+  buildDeskLamp() {
+    const lamp = new THREE.Group();
+    const matBlack = new THREE.MeshStandardMaterial({ color: 0x07070d, roughness: 0.32, metalness: 0.78 });
+    const matJoint = new THREE.MeshStandardMaterial({ color: 0x16121e, roughness: 0.4, metalness: 0.7 });
 
-    // ── 2 tall LED-Bars (links + rechts vom Monitor) ──────
+    // Position: links hinten am Tisch (hinter dem Speaker, freier Bereich)
+    const baseX = -2.0;
+    const baseY = 1.04;
+    const baseZ = -0.15;
+
+    // 1. Fußplatte (rund, dezent)
+    const base = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.11, 0.13, 0.02, 32),
+      matBlack
+    );
+    base.position.set(baseX, baseY + 0.01, baseZ);
+    base.castShadow = true;
+    lamp.add(base);
+
+    // 2. Vertikaler Arm (unten)
+    const armLen1 = 0.45;
+    const arm1 = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.012, 0.012, armLen1, 16),
+      matBlack
+    );
+    arm1.position.set(baseX, baseY + armLen1 / 2 + 0.02, baseZ);
+    arm1.castShadow = true;
+    lamp.add(arm1);
+
+    // 3. Knick-Gelenk (Kugel)
+    const joint1 = new THREE.Mesh(
+      new THREE.SphereGeometry(0.025, 20, 14),
+      matJoint
+    );
+    joint1.position.set(baseX, baseY + armLen1 + 0.02, baseZ);
+    lamp.add(joint1);
+
+    // 4. Diagonaler Arm (nach vorne-oben)
+    const armLen2 = 0.42;
+    const armAng = -Math.PI * 0.32;  // 32° nach vorne geneigt
+    const arm2 = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.011, 0.011, armLen2, 16),
+      matBlack
+    );
+    // Position: vom joint1 ausgehend
+    const j1y = baseY + armLen1 + 0.02;
+    arm2.position.set(
+      baseX,
+      j1y + Math.cos(armAng) * armLen2 / 2,
+      baseZ - Math.sin(armAng) * armLen2 / 2
+    );
+    arm2.rotation.x = armAng;
+    arm2.castShadow = true;
+    lamp.add(arm2);
+
+    // 5. Zweites Gelenk
+    const j2y = j1y + Math.cos(armAng) * armLen2;
+    const j2z = baseZ - Math.sin(armAng) * armLen2;
+    const joint2 = new THREE.Mesh(
+      new THREE.SphereGeometry(0.022, 20, 14),
+      matJoint
+    );
+    joint2.position.set(baseX, j2y, j2z);
+    lamp.add(joint2);
+
+    // 6. Lampenkopf (kegelförmiger Schirm, nach unten gerichtet)
+    const headAng = -Math.PI * 0.7;   // stark nach unten
+    const headLen = 0.16;
+    const head = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.06, 0.09, headLen, 24, 1, true),
+      new THREE.MeshStandardMaterial({
+        color: 0x0a0a14, roughness: 0.4, metalness: 0.8,
+        side: THREE.DoubleSide,
+      })
+    );
+    // Vom joint2 ausgehend, kürzer Arm der den Kopf hält
+    const headHolderLen = 0.06;
+    const holderEndY = j2y + Math.cos(headAng) * headHolderLen;
+    const holderEndZ = j2z - Math.sin(headAng) * headHolderLen;
+    head.position.set(baseX, holderEndY + Math.cos(headAng) * headLen / 2, holderEndZ - Math.sin(headAng) * headLen / 2);
+    head.rotation.x = headAng;
+    head.castShadow = true;
+    lamp.add(head);
+
+    // Innenseite des Schirms (leuchtend)
+    const headInner = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.058, 0.088, headLen - 0.005, 24, 1, true),
+      new THREE.MeshBasicMaterial({ color: 0xffe8b8, side: THREE.BackSide })
+    );
+    headInner.position.copy(head.position);
+    headInner.rotation.copy(head.rotation);
+    lamp.add(headInner);
+
+    // 7. Glühbirne (kleine emissive Kugel im Kopf, sichtbar von unten)
+    const bulbY = holderEndY + Math.cos(headAng) * headLen * 0.6;
+    const bulbZ = holderEndZ - Math.sin(headAng) * headLen * 0.6;
+    const bulb = new THREE.Mesh(
+      new THREE.SphereGeometry(0.038, 20, 16),
+      new THREE.MeshBasicMaterial({ color: 0xfff0c8 })
+    );
+    bulb.position.set(baseX, bulbY, bulbZ);
+    lamp.add(bulb);
+
+    // 8. Die ECHTE Lichtquelle (warmer Spot nach unten/vorne auf den Tisch)
+    const lampLight = new THREE.SpotLight(0xffd896, 4.2, 2.6, Math.PI * 0.42, 0.55, 1.3);
+    // Position leicht UNTER der Bulb, damit Spot von dort startet
+    const lightY = bulbY + Math.cos(headAng) * 0.08;
+    const lightZ = bulbZ - Math.sin(headAng) * 0.08;
+    lampLight.position.set(baseX, lightY, lightZ);
+    // Ziel: auf dem Tisch vor der Lampe (Richtung Mitte / Keyboard)
+    const lampTarget = new THREE.Object3D();
+    lampTarget.position.set(baseX + 0.6, baseY + 0.05, baseZ + 0.55);
+    lamp.add(lampTarget);
+    lampLight.target = lampTarget;
+    lampLight.castShadow = true;
+    lampLight.shadow.mapSize.set(1024, 1024);
+    lampLight.shadow.bias = -0.0003;
+    lamp.add(lampLight);
+
+    // 9. Glow um die Bulb herum (subtle PointLight nach allen Seiten)
+    const bulbGlow = new THREE.PointLight(0xffd896, 1.4, 1.2, 2);
+    bulbGlow.position.set(baseX, bulbY, bulbZ);
+    lamp.add(bulbGlow);
+
+    // 10. Warmer Licht-Pool auf dem Tisch (Reflexionsandeutung)
+    const lightPool = new THREE.Mesh(
+      new THREE.CircleGeometry(0.34, 32),
+      new THREE.MeshBasicMaterial({ color: 0xffd896, transparent: true, opacity: 0.22 })
+    );
+    lightPool.rotation.x = -Math.PI / 2;
+    lightPool.position.set(baseX + 0.5, baseY + 0.045, baseZ + 0.5);
+    lamp.add(lightPool);
+
+    this.scene.add(lamp);
+    this.deskLamp = lamp;
+    this.deskLampBulb = bulbGlow;
+  }
+
+  /* ── WAND-DESIGN: cleaner, mit Lücken ─────────────────── */
+  buildWallArt() {
+    // ── 2 dezente vertikale LED-Bars (weit außen, klare Lücke
+    //    zu Regal und Monitor) ────────────────────────────────
     const tallBars = [
-      { x: -2.4, color: 0xa050ff, h: 4.2 },
-      { x:  2.4, color: 0xa050ff, h: 4.2 },
+      { x: -4.0, color: 0xb060ff },
+      { x:  4.0, color: 0xb060ff },
     ];
     tallBars.forEach(b => {
-      const bar = new THREE.Mesh(
-        new THREE.PlaneGeometry(0.06, b.h),
-        new THREE.MeshBasicMaterial({ color: b.color })
-      );
-      bar.position.set(b.x, 3.4, -2.96);
-      this.scene.add(bar);
-      const light = new THREE.PointLight(b.color, 1.2, 3.8, 1.6);
-      light.position.set(b.x, 3.4, -2.4);
+      // 3 Segmente mit Lücken — modern "broken strip"-Look
+      const segments = [
+        { yc: 1.6, h: 1.2 },
+        { yc: 3.2, h: 0.8 },
+        { yc: 4.6, h: 1.0 },
+      ];
+      segments.forEach(s => {
+        const bar = new THREE.Mesh(
+          new THREE.PlaneGeometry(0.05, s.h),
+          new THREE.MeshBasicMaterial({ color: b.color })
+        );
+        bar.position.set(b.x, s.yc, -2.96);
+        this.scene.add(bar);
+      });
+      // Ein Sammel-Licht pro Bar
+      const light = new THREE.PointLight(b.color, 1.4, 4.5, 1.6);
+      light.position.set(b.x, 3.0, -2.3);
       this.scene.add(light);
     });
 
-    // ── Modern geometric panel: 6 backlit Rechtecke in 2 Reihen ──
-    const panels = [
-      { x: -1.5, y: 5.0, w: 0.55, h: 0.4 },
-      { x: -0.85, y: 5.0, w: 0.55, h: 0.4 },
-      { x: 1.5, y: 5.0, w: 0.55, h: 0.4 },
-      { x: 0.85, y: 5.0, w: 0.55, h: 0.4 },
-      { x: -1.2, y: 5.55, w: 0.4, h: 0.3 },
-      { x: 1.2, y: 5.55, w: 0.4, h: 0.3 },
-    ];
-    panels.forEach((p, i) => {
-      const color = i % 2 === 0 ? 0xa050ff : 0x8040d8;
-      const panel = new THREE.Mesh(
-        new THREE.PlaneGeometry(p.w, p.h),
-        new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.85 })
-      );
-      panel.position.set(p.x, p.y, -2.96);
-      this.scene.add(panel);
-      // Panel-Frame (dünner schwarzer Rahmen)
-      const frameMat = new THREE.MeshStandardMaterial({ color: 0x02020a, roughness: 0.4, metalness: 0.7 });
-      [
-        { ox: 0, oy: p.h / 2 + 0.012, w: p.w + 0.024, h: 0.024 },
-        { ox: 0, oy: -p.h / 2 - 0.012, w: p.w + 0.024, h: 0.024 },
-        { ox: -p.w / 2 - 0.012, oy: 0, w: 0.024, h: p.h },
-        { ox:  p.w / 2 + 0.012, oy: 0, w: 0.024, h: p.h },
-      ].forEach(s => {
-        const f = new THREE.Mesh(new THREE.BoxGeometry(s.w, s.h, 0.025), frameMat);
-        f.position.set(p.x + s.ox, p.y + s.oy, -2.945);
-        this.scene.add(f);
-      });
-    });
-    // Sammel-Glow für die Panel-Wand
-    const panelGlow = new THREE.PointLight(0xa050ff, 0.9, 4, 1.6);
-    panelGlow.position.set(0, 5.2, -2.4);
-    this.scene.add(panelGlow);
-
-    // ── BACKLIT "T·U" LOGO an der Wand (in der Mitte über Monitor) ──
+    // ── Backlit "T·U" Logo, eleganter und kleiner ──────────
     const logoCanvas = document.createElement('canvas');
-    logoCanvas.width = 480; logoCanvas.height = 200;
+    logoCanvas.width = 520; logoCanvas.height = 240;
     const lg = logoCanvas.getContext('2d');
-    lg.fillStyle = '#0a0612'; lg.fillRect(0, 0, 480, 200);
-    lg.font = 'bold 140px "JetBrains Mono", monospace';
-    lg.fillStyle = '#f0ff3a';
-    lg.shadowColor = '#f0ff3a';
-    lg.shadowBlur = 30;
+    lg.fillStyle = 'rgba(8, 4, 16, 0)'; lg.fillRect(0, 0, 520, 240);
+    // Heller Outer-Glow als Layer-Effekt
+    lg.font = 'bold 110px "Fraunces", serif';
+    lg.fillStyle = '#fff0a8';
+    lg.shadowColor = '#ffb060';
+    lg.shadowBlur = 38;
     lg.textAlign = 'center';
-    lg.fillText('T·U', 240, 150);
+    lg.fillText('T·U', 260, 160);
+    // Doppelt für stärkeren Glow
+    lg.shadowBlur = 16;
+    lg.fillText('T·U', 260, 160);
     const logoTex = new THREE.CanvasTexture(logoCanvas);
     logoTex.colorSpace = THREE.SRGBColorSpace;
     const logo = new THREE.Mesh(
-      new THREE.PlaneGeometry(1.1, 0.45),
+      new THREE.PlaneGeometry(1.1, 0.5),
       new THREE.MeshBasicMaterial({ map: logoTex, transparent: true })
     );
-    logo.position.set(0, 4.3, -2.96);
+    logo.position.set(0, 4.5, -2.96);
     this.scene.add(logo);
-    const logoLight = new THREE.PointLight(0xf0ff3a, 0.5, 2.5, 2);
-    logoLight.position.set(0, 4.3, -2.5);
+    const logoLight = new THREE.PointLight(0xffb060, 0.8, 3.2, 2);
+    logoLight.position.set(0, 4.5, -2.4);
     this.scene.add(logoLight);
 
-    // ── Cyan-LED Strip an der rechten Seitenwand (horizontal) ──
+    // ── 2 dezente Akzent-Panels symmetrisch links/rechts vom Logo
+    //    (mit klarem Abstand zueinander und zum Logo) ────────
+    const panelColor = 0x8848d8;
+    const panels = [
+      { x: -2.1, y: 4.5, w: 0.7, h: 0.5 },
+      { x:  2.1, y: 4.5, w: 0.7, h: 0.5 },
+    ];
+    panels.forEach(p => {
+      const panel = new THREE.Mesh(
+        new THREE.PlaneGeometry(p.w, p.h),
+        new THREE.MeshBasicMaterial({ color: panelColor, transparent: true, opacity: 0.78 })
+      );
+      panel.position.set(p.x, p.y, -2.96);
+      this.scene.add(panel);
+      // Dünner schwarzer Rahmen drumherum
+      const frameMat = new THREE.MeshStandardMaterial({ color: 0x02020a, roughness: 0.35, metalness: 0.75 });
+      [
+        { ox: 0, oy: p.h / 2 + 0.013, w: p.w + 0.026, h: 0.018 },
+        { ox: 0, oy: -p.h / 2 - 0.013, w: p.w + 0.026, h: 0.018 },
+        { ox: -p.w / 2 - 0.013, oy: 0, w: 0.018, h: p.h + 0.018 },
+        { ox:  p.w / 2 + 0.013, oy: 0, w: 0.018, h: p.h + 0.018 },
+      ].forEach(s => {
+        const f = new THREE.Mesh(new THREE.BoxGeometry(s.w, s.h, 0.022), frameMat);
+        f.position.set(p.x + s.ox, p.y + s.oy, -2.948);
+        this.scene.add(f);
+      });
+      const pl = new THREE.PointLight(panelColor, 0.65, 2.6, 1.8);
+      pl.position.set(p.x, p.y, -2.35);
+      this.scene.add(pl);
+    });
+
+    // ── Cyan-LED Strip rechte Seitenwand (horizontal, dezent) ──
     const sideStrip = new THREE.Mesh(
-      new THREE.PlaneGeometry(0.04, 3.0),
+      new THREE.PlaneGeometry(0.04, 2.4),
       new THREE.MeshBasicMaterial({ color: 0x3affe6 })
     );
     sideStrip.rotation.y = -Math.PI / 2;
-    sideStrip.position.set(5.47, 2.7, 0.8);
+    sideStrip.rotation.z = Math.PI / 2;
+    sideStrip.position.set(5.47, 4.5, -0.5);
     this.scene.add(sideStrip);
-    const sideLight = new THREE.PointLight(0x3affe6, 0.8, 4, 2);
-    sideLight.position.set(4.7, 2.7, 0.8);
+    const sideLight = new THREE.PointLight(0x3affe6, 0.7, 3.5, 2);
+    sideLight.position.set(4.9, 4.5, -0.5);
     this.scene.add(sideLight);
   }
 
-  /* ── Wandregal mit Items (über dem Monitor) ────────────── */
+  /* ── Wandregal mit Items (kompakter, klar abgegrenzt) ──── */
   buildShelf() {
-    // Schwebendes schwarzes Regal (rechts oben)
+    // Schwebendes Regal — kompakter (1.7 statt 2.2), zentriert
+    // bei x=2.9 sodass es zwischen Monitor (Ende x=1.2) und
+    // rechtem LED-Bar (x=4.0) klar Platz hat
+    const shelfX = 2.9;
+    const shelfW = 1.4;
     const shelfMat = new THREE.MeshStandardMaterial({ color: 0x06060a, roughness: 0.35, metalness: 0.7 });
-    const shelf = new THREE.Mesh(new THREE.BoxGeometry(2.2, 0.05, 0.32), shelfMat);
-    shelf.position.set(2.4, 2.6, -2.83);
+    const shelf = new THREE.Mesh(new THREE.BoxGeometry(shelfW, 0.045, 0.3), shelfMat);
+    shelf.position.set(shelfX, 2.3, -2.83);
     shelf.castShadow = true;
     this.scene.add(shelf);
     // Halterungen
-    const support = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.18, 0.32), shelfMat);
-    support.position.set(1.4, 2.7, -2.84);
+    const support = new THREE.Mesh(new THREE.BoxGeometry(0.035, 0.16, 0.28), shelfMat);
+    support.position.set(shelfX - shelfW / 2 + 0.06, 2.4, -2.85);
     this.scene.add(support);
-    const support2 = support.clone(); support2.position.set(3.4, 2.7, -2.84); this.scene.add(support2);
+    const support2 = support.clone();
+    support2.position.set(shelfX + shelfW / 2 - 0.06, 2.4, -2.85);
+    this.scene.add(support2);
 
     // Under-Shelf LED-Glow (cyan)
     const ledStrip = new THREE.Mesh(
-      new THREE.PlaneGeometry(2.0, 0.025),
+      new THREE.PlaneGeometry(shelfW - 0.15, 0.025),
       new THREE.MeshBasicMaterial({ color: 0x3affe6 })
     );
-    ledStrip.position.set(2.4, 2.572, -2.7);
+    ledStrip.position.set(shelfX, 2.276, -2.7);
     this.scene.add(ledStrip);
-    const ledLight = new THREE.PointLight(0x3affe6, 1.1, 2.6, 1.6);
-    ledLight.position.set(2.4, 2.47, -2.5);
+    const ledLight = new THREE.PointLight(0x3affe6, 1.0, 2.4, 1.6);
+    ledLight.position.set(shelfX, 2.2, -2.5);
     this.scene.add(ledLight);
 
     // ── Items auf dem Regal ──
-    // 3 Bücher stehend
-    const stoodBookColors = [0x4a2858, 0x1a3a58, 0x4a1820, 0x2a4a30];
+    // 3 stehende Bücher (links)
+    const stoodBookColors = [0x4a2858, 0x1a3a58, 0x4a1820];
     stoodBookColors.forEach((c, i) => {
       const book = new THREE.Mesh(
-        new THREE.BoxGeometry(0.05, 0.32, 0.22),
+        new THREE.BoxGeometry(0.05, 0.28, 0.2),
         new THREE.MeshStandardMaterial({ color: c, roughness: 0.7 })
       );
-      book.position.set(1.6 + i * 0.06, 2.78, -2.83);
+      book.position.set(shelfX - shelfW / 2 + 0.18 + i * 0.06, 2.46, -2.84);
       book.castShadow = true;
       this.scene.add(book);
     });
-    // 1 Buch quer (Akzent)
-    const lyingBook = new THREE.Mesh(
-      new THREE.BoxGeometry(0.18, 0.04, 0.22),
-      new THREE.MeshStandardMaterial({ color: 0xc8a04a, roughness: 0.6 })
-    );
-    lyingBook.position.set(2.0, 2.64, -2.83);
-    this.scene.add(lyingBook);
 
-    // Hängendes Plant (mit langen Blättern) — rechts auf dem Regal
+    // Hängende Pothos-Pflanze (rechts)
     const potShelf = new THREE.Mesh(
-      new THREE.CylinderGeometry(0.08, 0.07, 0.1, 16),
+      new THREE.CylinderGeometry(0.07, 0.06, 0.09, 16),
       new THREE.MeshStandardMaterial({ color: 0x14101a, roughness: 0.85 })
     );
-    potShelf.position.set(3.1, 2.68, -2.83);
+    potShelf.position.set(shelfX + shelfW / 2 - 0.18, 2.37, -2.83);
     this.scene.add(potShelf);
-    // Lange Hänge-Blätter (Pothos-Style)
     const hangMat = new THREE.MeshStandardMaterial({ color: 0x4a8a5e, roughness: 0.6 });
     for (let i = 0; i < 6; i++) {
-      const len = 0.3 + Math.random() * 0.3;
+      const len = 0.25 + Math.random() * 0.25;
       const stem = new THREE.Mesh(
         new THREE.CylinderGeometry(0.005, 0.005, len, 6),
         hangMat
       );
       const ang = (i / 6) * Math.PI * 2;
-      stem.position.set(
-        3.1 + Math.cos(ang) * 0.05,
-        2.72 - len / 2,
-        -2.83 + Math.sin(ang) * 0.04
-      );
+      const px = shelfX + shelfW / 2 - 0.18 + Math.cos(ang) * 0.04;
+      const pz = -2.83 + Math.sin(ang) * 0.04;
+      stem.position.set(px, 2.41 - len / 2, pz);
       stem.rotation.x = Math.sin(ang) * 0.2;
       stem.rotation.z = Math.cos(ang) * 0.2;
       this.scene.add(stem);
-      // kleines Blatt am Ende
       const leaf = new THREE.Mesh(
-        new THREE.SphereGeometry(0.018, 8, 8),
+        new THREE.SphereGeometry(0.016, 8, 8),
         hangMat
       );
       leaf.scale.set(1, 1.8, 0.5);
       leaf.position.set(
-        3.1 + Math.cos(ang) * 0.09,
-        2.72 - len,
+        shelfX + shelfW / 2 - 0.18 + Math.cos(ang) * 0.08,
+        2.41 - len,
         -2.83 + Math.sin(ang) * 0.07
       );
       this.scene.add(leaf);
     }
 
-    // Gerahmtes Foto/Print (kleiner)
+    // Mittiges gerahmtes Foto (Sonnenuntergang-Print, dezent)
     const photoCanvas = document.createElement('canvas');
-    photoCanvas.width = 200; photoCanvas.height = 280;
+    photoCanvas.width = 200; photoCanvas.height = 260;
     const pg = photoCanvas.getContext('2d');
-    const gradient = pg.createLinearGradient(0, 0, 0, 280);
-    gradient.addColorStop(0, '#3a1860'); gradient.addColorStop(0.5, '#a050ff'); gradient.addColorStop(1, '#f0a050');
-    pg.fillStyle = gradient; pg.fillRect(0, 0, 200, 280);
-    // Berge silhouette
-    pg.fillStyle = 'rgba(0,0,0,0.6)';
+    const gradient = pg.createLinearGradient(0, 0, 0, 260);
+    gradient.addColorStop(0, '#3a1860');
+    gradient.addColorStop(0.45, '#a050ff');
+    gradient.addColorStop(0.75, '#ff8050');
+    gradient.addColorStop(1, '#2a0610');
+    pg.fillStyle = gradient; pg.fillRect(0, 0, 200, 260);
+    // Berge
+    pg.fillStyle = 'rgba(0,0,0,0.7)';
     pg.beginPath();
-    pg.moveTo(0, 220); pg.lineTo(40, 160); pg.lineTo(90, 200);
-    pg.lineTo(130, 140); pg.lineTo(200, 200); pg.lineTo(200, 280); pg.lineTo(0, 280);
+    pg.moveTo(0, 210); pg.lineTo(40, 160); pg.lineTo(85, 195);
+    pg.lineTo(130, 145); pg.lineTo(200, 200); pg.lineTo(200, 260); pg.lineTo(0, 260);
     pg.closePath(); pg.fill();
+    // Sonne
+    pg.fillStyle = 'rgba(255, 220, 160, 0.85)';
+    pg.beginPath(); pg.arc(135, 170, 22, 0, Math.PI * 2); pg.fill();
     const photoTex = new THREE.CanvasTexture(photoCanvas);
     photoTex.colorSpace = THREE.SRGBColorSpace;
     const photo = new THREE.Mesh(
-      new THREE.PlaneGeometry(0.22, 0.3),
+      new THREE.PlaneGeometry(0.2, 0.27),
       new THREE.MeshBasicMaterial({ map: photoTex })
     );
-    photo.position.set(2.7, 2.78, -2.825);
+    photo.position.set(shelfX, 2.55, -2.825);
     this.scene.add(photo);
     const photoFrame = new THREE.Mesh(
-      new THREE.BoxGeometry(0.25, 0.33, 0.014),
+      new THREE.BoxGeometry(0.225, 0.295, 0.012),
       new THREE.MeshStandardMaterial({ color: 0x06060a, roughness: 0.3, metalness: 0.7 })
     );
-    photoFrame.position.set(2.7, 2.78, -2.835);
+    photoFrame.position.set(shelfX, 2.55, -2.835);
     this.scene.add(photoFrame);
   }
 
