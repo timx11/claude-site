@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Beispiel-Sites — Tim-Ulrich-Webstudio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500..800&family=JetBrains+Mono:wght@400;500;700&display=swap" />
+  <link rel="stylesheet" href="admin-shared.css" />
+  <link rel="stylesheet" href="osapp.css" />
+</head>
+<body class="osapp">
+
+<div id="ad-topnav-mount"></div>
+
+<main class="osapp-page">
+
+  <header class="osapp-header">
+    <div>
+      <span class="osapp-kicker">◈ Portfolio</span>
+      <h1 class="osapp-title">Beispiel-<em>Sites</em></h1>
+      <p class="osapp-sub">Deine bisherigen Websites — zum Vorzeigen im Termin.</p>
+    </div>
+    <div class="osapp-actions">
+      <button class="osapp-btn osapp-btn-ghost" onclick="loadSamples()">↺ Beispiele laden</button>
+      <button class="osapp-btn osapp-btn-primary" onclick="openEditor()">+ Neue Seite</button>
+    </div>
+  </header>
+
+  <div class="beispiel-filter" id="filter"></div>
+
+  <div id="grid" class="beispiel-grid"></div>
+</main>
+
+<!-- Editor-Modal -->
+<div class="osapp-modal-bg" id="editor-modal">
+  <div class="osapp-modal">
+    <div class="osapp-modal-h">
+      <h2 id="editor-title">Neue Website</h2>
+    </div>
+    <div class="osapp-modal-b">
+      <label class="osapp-label">Name / Kunde</label>
+      <input type="text" id="ed-name" class="osapp-input" placeholder="z.B. Friseur Mauro" />
+
+      <label class="osapp-label">Branche</label>
+      <select id="ed-category" class="osapp-select">
+        <option value="Friseur">Friseur</option>
+        <option value="Handwerk">Handwerk</option>
+        <option value="Kosmetik">Kosmetik</option>
+        <option value="Gastro">Gastronomie</option>
+        <option value="Fahrschule">Fahrschule</option>
+        <option value="Dienstleister">Dienstleister</option>
+        <option value="Sonstiges">Sonstiges</option>
+      </select>
+
+      <label class="osapp-label">URL (live)</label>
+      <input type="text" id="ed-url" class="osapp-input" placeholder="https://..." />
+
+      <label class="osapp-label">Kurze Beschreibung</label>
+      <textarea id="ed-desc" class="osapp-textarea" placeholder="Was war der Brief, was wurde erreicht?"></textarea>
+
+      <label class="osapp-label">Accent-Farbe</label>
+      <select id="ed-color" class="osapp-select">
+        <option value="#a050ff">Lila</option>
+        <option value="#3affe6">Cyan</option>
+        <option value="#f6ff3a">Neon-Gelb</option>
+        <option value="#ff5db4">Pink</option>
+        <option value="#ff8b3a">Orange</option>
+        <option value="#5d7cff">Blau</option>
+        <option value="#1aaa70">Grün</option>
+      </select>
+    </div>
+    <div class="osapp-modal-f">
+      <button class="osapp-btn osapp-btn-danger" id="ed-delete" style="margin-right: auto; display: none;" onclick="deleteEntry()">🗑 Löschen</button>
+      <button class="osapp-btn osapp-btn-ghost" onclick="closeEditor()">Abbrechen</button>
+      <button class="osapp-btn osapp-btn-primary" onclick="saveEntry()">Speichern</button>
+    </div>
+  </div>
+</div>
+
+<script src="admin-shared.js"></script>
+<script src="beispielsites.js"></script>
+</body>
+</html>

@@ -251,56 +251,75 @@ html, body {
 }
 .os-exit:hover { background: rgba(255, 58, 90, 0.3); }
 
-/* Desktop area (Icons) */
+/* Desktop area (Icons in linker Spalte, oben → unten) */
 .os-desktop {
   position: relative; z-index: 2;
   flex: 1;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 110px);
-  grid-auto-rows: 110px;
-  align-content: start;
-  gap: 8px;
-  padding: 22px;
+  display: flex; flex-direction: column;
+  gap: 14px;
+  padding: 32px 28px;
+  align-items: flex-start;
 }
 .os-icon {
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: flex-start;
-  gap: 8px;
-  padding: 12px 6px;
-  border-radius: 10px;
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 14px;
+  align-items: center;
+  padding: 10px 14px 10px 10px;
+  border-radius: 14px;
   cursor: pointer;
   background: transparent;
-  border: 2px solid transparent;
-  transition: background 0.15s, border-color 0.15s;
-  text-align: center;
+  border: 1.5px solid transparent;
+  transition: all 0.22s cubic-bezier(.16,.84,.32,1);
+  text-align: left;
+  min-width: 230px;
+  position: relative;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
-.os-icon:hover { background: rgba(162, 59, 255, 0.08); }
+.os-icon:hover {
+  background: rgba(162, 59, 255, 0.1);
+  border-color: rgba(162, 59, 255, 0.25);
+  transform: translateX(4px);
+}
 .os-icon.selected {
   background: rgba(162, 59, 255, 0.18);
-  border-color: rgba(162, 59, 255, 0.5);
+  border-color: rgba(162, 59, 255, 0.55);
+  box-shadow: 0 0 24px rgba(162, 59, 255, 0.25);
 }
 .os-icon-img {
   width: 56px; height: 56px;
-  border-radius: 12px;
+  border-radius: 14px;
   display: grid; place-items: center;
-  font-size: 28px;
+  font-size: 26px;
+  font-weight: 700;
   background: linear-gradient(135deg, var(--neon-purple), var(--neon-blue));
   box-shadow:
-    0 8px 18px rgba(162, 59, 255, 0.35),
-    inset 0 1px 0 rgba(255,255,255,0.2);
+    0 10px 22px rgba(162, 59, 255, 0.4),
+    inset 0 1px 0 rgba(255,255,255,0.25);
   position: relative;
+  color: #fff;
+  transition: transform 0.2s;
 }
-.os-icon-img.app-orange { background: linear-gradient(135deg, #ff7a3a, #c8421b); box-shadow: 0 8px 18px rgba(200, 66, 27, 0.35), inset 0 1px 0 rgba(255,255,255,0.2); }
-.os-icon-img.app-yellow { background: linear-gradient(135deg, var(--neon-yellow), #c8b830); color: #1a1410; box-shadow: 0 8px 18px rgba(240, 255, 58, 0.35), inset 0 1px 0 rgba(255,255,255,0.4); }
-.os-icon-img.app-cyan   { background: linear-gradient(135deg, var(--neon-cyan), #1aaaa0); box-shadow: 0 8px 18px rgba(58, 255, 230, 0.35), inset 0 1px 0 rgba(255,255,255,0.3); color: #0a1a18; }
-.os-icon-img.app-pink   { background: linear-gradient(135deg, var(--neon-pink), #b3289a); box-shadow: 0 8px 18px rgba(255, 58, 214, 0.35), inset 0 1px 0 rgba(255,255,255,0.2); }
-.os-icon-img.app-blue   { background: linear-gradient(135deg, var(--neon-blue), #1f3fb3); box-shadow: 0 8px 18px rgba(58, 107, 255, 0.35), inset 0 1px 0 rgba(255,255,255,0.2); }
-.os-icon-img.app-file   { background: linear-gradient(135deg, #3d3656, #241f33); box-shadow: 0 6px 14px rgba(0,0,0,0.4); }
+.os-icon:hover .os-icon-img { transform: scale(1.04) rotate(-2deg); }
+.os-icon-img.app-orange { background: linear-gradient(135deg, #ff8b3a, #c8421b); box-shadow: 0 10px 22px rgba(200, 66, 27, 0.45), inset 0 1px 0 rgba(255,255,255,0.25); }
+.os-icon-img.app-yellow { background: linear-gradient(135deg, #fff14a, #d4b820); color: #1a1410; box-shadow: 0 10px 22px rgba(240, 255, 58, 0.5), inset 0 1px 0 rgba(255,255,255,0.45); }
+.os-icon-img.app-cyan   { background: linear-gradient(135deg, #4dffe6, #1aaaa0); color: #0a1a18; box-shadow: 0 10px 22px rgba(58, 255, 230, 0.45), inset 0 1px 0 rgba(255,255,255,0.35); }
+.os-icon-img.app-pink   { background: linear-gradient(135deg, #ff5db4, #b3289a); box-shadow: 0 10px 22px rgba(255, 58, 214, 0.45), inset 0 1px 0 rgba(255,255,255,0.25); }
+.os-icon-img.app-blue   { background: linear-gradient(135deg, #5d7cff, #1f3fb3); box-shadow: 0 10px 22px rgba(58, 107, 255, 0.45), inset 0 1px 0 rgba(255,255,255,0.25); }
+.os-icon-img.app-purple { background: linear-gradient(135deg, #c87dff, #7a2dff); box-shadow: 0 10px 22px rgba(162, 59, 255, 0.5), inset 0 1px 0 rgba(255,255,255,0.3); }
+.os-icon-img.app-file   { background: linear-gradient(135deg, #3d3656, #241f33); box-shadow: 0 8px 16px rgba(0,0,0,0.4); }
+.os-icon-text { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
 .os-icon-label {
-  font-size: 12px; line-height: 1.2;
-  color: var(--text); font-weight: 500;
-  word-break: break-word;
-  text-shadow: 0 1px 4px rgba(0,0,0,0.7);
+  font-size: 14px; line-height: 1.2;
+  color: var(--text); font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.os-icon-sub {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-soft);
+  letter-spacing: 0.02em;
 }
 
 /* Windows */
