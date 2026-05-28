@@ -540,12 +540,12 @@ class Studio3D {
     standBase.castShadow = true;
     pc.add(standBase);
 
-    // Hot-Zone für Raycaster
+    // Hot-Zone für Raycaster (großzügig, damit Klick zuverlässig greift)
     const hot = new THREE.Mesh(
-      new THREE.PlaneGeometry(monW + 0.1, monH + 0.1),
+      new THREE.PlaneGeometry(monW + 0.5, monH + 0.4),
       new THREE.MeshBasicMaterial({ visible: false })
     );
-    hot.position.set(0, monY, monZ + monD / 2 + 0.03);
+    hot.position.set(0, monY, monZ + monD / 2 + 0.05);
     pc.add(hot);
     this.monitorHotZone = hot;
 
@@ -1559,7 +1559,7 @@ class DesktopOS {
           <span class="tc-max"    title="Maximieren"></span>
         </div>
         <div class="os-window-title">${app.label}</div>
-        <div style="width:54px"></div>
+        <button class="os-window-close-big" title="Zurück zum Desktop">✕</button>
       </div>
       <div class="os-window-body">
         <iframe src="${app.src}" title="${app.label}" loading="lazy"></iframe>
@@ -1575,6 +1575,7 @@ class DesktopOS {
     win.querySelector('.tc-close').addEventListener('click', e => { e.stopPropagation(); this.closeApp(id); });
     win.querySelector('.tc-min').addEventListener('click', e => { e.stopPropagation(); this.minimizeApp(id); });
     win.querySelector('.tc-max').addEventListener('click', e => { e.stopPropagation(); this.maximizeApp(id); });
+    win.querySelector('.os-window-close-big').addEventListener('click', e => { e.stopPropagation(); this.closeApp(id); });
     win.addEventListener('mousedown', () => this.focusWindow(id));
 
     this.renderTaskbar();

@@ -18,13 +18,14 @@
 
   <header class="osapp-header">
     <div>
-      <span class="osapp-kicker">◈ Portfolio</span>
+      <span class="osapp-kicker">Portfolio</span>
       <h1 class="osapp-title">Beispiel-<em>Sites</em></h1>
-      <p class="osapp-sub">Deine bisherigen Websites — zum Vorzeigen im Termin.</p>
+      <p class="osapp-sub">Deine bisherigen Sites — und ein Schnell-Generator, mit dem Du in 30 Sekunden eine fertige Vorschau-Website baust.</p>
     </div>
     <div class="osapp-actions">
-      <button class="osapp-btn osapp-btn-ghost" onclick="loadSamples()">↺ Beispiele laden</button>
-      <button class="osapp-btn osapp-btn-primary" onclick="openEditor()">+ Neue Seite</button>
+      <button class="osapp-btn osapp-btn-ghost" onclick="loadSamples()">Beispiele laden</button>
+      <button class="osapp-btn osapp-btn-ghost" onclick="openEditor()">+ Eintrag</button>
+      <button class="osapp-btn osapp-btn-primary" onclick="openGenerator()">✨ Schnell generieren</button>
     </div>
   </header>
 
@@ -76,6 +77,119 @@
       <button class="osapp-btn osapp-btn-ghost" onclick="closeEditor()">Abbrechen</button>
       <button class="osapp-btn osapp-btn-primary" onclick="saveEntry()">Speichern</button>
     </div>
+  </div>
+</div>
+
+<!-- ── Quick-Generator Modal ─────────────────────────────── -->
+<div class="osapp-modal-bg" id="gen-modal">
+  <div class="osapp-modal osapp-modal-wide">
+    <div class="osapp-modal-h">
+      <h2>✨ Schnell-Website generieren</h2>
+      <p style="margin: 6px 0 0; color: rgba(248, 244, 255, 0.55); font-size: 14px;">
+        Trag's ein, klick auf "Generieren" — Du kriegst eine vollständige fertige Vorschau-Website.
+      </p>
+    </div>
+    <div class="osapp-modal-b">
+      <div class="gen-grid">
+        <div>
+          <label class="osapp-label">Firma / Name *</label>
+          <input type="text" id="gen-name" class="osapp-input" placeholder="z.B. Haarteiler Süd" />
+        </div>
+        <div>
+          <label class="osapp-label">Branche</label>
+          <select id="gen-branche" class="osapp-select">
+            <option value="Friseur">Friseur</option>
+            <option value="Handwerk">Handwerk</option>
+            <option value="Kosmetik">Kosmetik</option>
+            <option value="Gastro">Gastronomie</option>
+            <option value="Fahrschule">Fahrschule</option>
+            <option value="Dienstleister">Dienstleister</option>
+          </select>
+        </div>
+      </div>
+
+      <label class="osapp-label">Stil</label>
+      <div class="gen-chips" id="gen-style">
+        <button type="button" class="gen-chip is-on" data-v="modern">Modern Clean</button>
+        <button type="button" class="gen-chip" data-v="edel">Edel Premium</button>
+        <button type="button" class="gen-chip" data-v="warm">Warm Freundlich</button>
+        <button type="button" class="gen-chip" data-v="bold">Bold Auffällig</button>
+      </div>
+
+      <div class="gen-grid">
+        <div>
+          <label class="osapp-label">Hauptfarbe</label>
+          <div style="display: flex; gap: 8px; align-items: center;">
+            <input type="color" id="gen-color" value="#c4502a" style="width: 50px; height: 38px; border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; background: transparent; cursor: pointer;" />
+            <input type="text" id="gen-color-text" class="osapp-input" value="#c4502a" style="flex: 1;" />
+          </div>
+        </div>
+        <div>
+          <label class="osapp-label">Anzahl Galerie-Bilder</label>
+          <input type="number" id="gen-images" class="osapp-input" value="6" min="0" max="12" />
+        </div>
+      </div>
+
+      <div class="gen-grid">
+        <div>
+          <label class="osapp-label">Headline (optional)</label>
+          <input type="text" id="gen-headline" class="osapp-input" placeholder="z.B. Schöne Haare. Echte Beratung." />
+        </div>
+        <div>
+          <label class="osapp-label">CTA-Button</label>
+          <input type="text" id="gen-cta" class="osapp-input" value="Termin sichern" />
+        </div>
+      </div>
+
+      <label class="osapp-label">Sub-Headline / Kurzbeschreibung (optional)</label>
+      <textarea id="gen-sub" class="osapp-textarea" placeholder="Ein Satz, der erklärt was Du machst…"></textarea>
+
+      <div class="gen-grid gen-grid-3">
+        <div>
+          <label class="osapp-label">Telefon</label>
+          <input type="text" id="gen-phone" class="osapp-input" placeholder="+49 ..." />
+        </div>
+        <div>
+          <label class="osapp-label">E-Mail</label>
+          <input type="text" id="gen-email" class="osapp-input" placeholder="info@..." />
+        </div>
+        <div>
+          <label class="osapp-label">Adresse</label>
+          <input type="text" id="gen-address" class="osapp-input" placeholder="Straße, Stadt" />
+        </div>
+      </div>
+
+      <label class="osapp-label">Sektionen</label>
+      <div class="gen-checks">
+        <label><input type="checkbox" id="gen-gallery" checked> Galerie</label>
+        <label><input type="checkbox" id="gen-reviews" checked> Bewertungen</label>
+        <label><input type="checkbox" id="gen-faq"> FAQ</label>
+        <label><input type="checkbox" id="gen-map" checked> Karte</label>
+      </div>
+    </div>
+    <div class="osapp-modal-f">
+      <button class="osapp-btn osapp-btn-ghost" onclick="closeGenerator()">Abbrechen</button>
+      <button class="osapp-btn osapp-btn-primary" onclick="runGenerator()">✨ Generieren</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Preview Modal ─────────────────────────────────────── -->
+<div class="osapp-modal-bg osapp-modal-bg-full" id="preview-modal">
+  <div class="osapp-preview">
+    <div class="osapp-preview-bar">
+      <div class="osapp-preview-info">
+        <strong id="preview-title">Vorschau</strong>
+        <span class="osapp-preview-meta" id="preview-meta"></span>
+      </div>
+      <div class="osapp-preview-actions">
+        <button class="osapp-btn osapp-btn-ghost osapp-btn-sm" onclick="downloadGenerated()">↓ HTML</button>
+        <button class="osapp-btn osapp-btn-ghost osapp-btn-sm" onclick="openInNewTab()">↗ Neu</button>
+        <button class="osapp-btn osapp-btn-primary osapp-btn-sm" onclick="saveGenerated()">In Portfolio speichern</button>
+        <button class="osapp-btn-close" onclick="closePreview()" title="Schließen">✕</button>
+      </div>
+    </div>
+    <iframe id="preview-frame" class="osapp-preview-frame"></iframe>
   </div>
 </div>
 
