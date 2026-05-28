@@ -83,13 +83,13 @@ function loadSettings() {
     return {
       apiKey: s.apiKey || '',
       model: s.model || 'claude-sonnet-4-6',
-      studioName: s.studioName || 'WebStudio Duisburg',
+      studioName: s.studioName || 'Tim-Ulrich-Webstudio',
       studioCity: s.studioCity || 'Duisburg',
       studioEmail: s.studioEmail || 'weblabduisburg@gmail.com',
       wishFormBaseUrl: s.wishFormBaseUrl || '',
     };
   } catch (_) {
-    return { apiKey: '', model: 'claude-sonnet-4-6', studioName: 'WebStudio Duisburg', studioCity: 'Duisburg', studioEmail: 'weblabduisburg@gmail.com', wishFormBaseUrl: '' };
+    return { apiKey: '', model: 'claude-sonnet-4-6', studioName: 'Tim-Ulrich-Webstudio', studioCity: 'Duisburg', studioEmail: 'weblabduisburg@gmail.com', wishFormBaseUrl: '' };
   }
 }
 
@@ -185,8 +185,8 @@ function renderTopNav(activeKey) {
     <header class="ad-topnav">
       <div class="ad-topnav-inner">
         <a class="ad-brand" href="../index.html">
-          <span class="ad-brand-mark">W</span>
-          <span>WebStudio <span class="ad-brand-sub">· Admin</span></span>
+          <span class="ad-brand-mark">TU</span>
+          <span>Tim-Ulrich-Webstudio <span class="ad-brand-sub">· Admin</span></span>
         </a>
         <nav class="ad-nav">
           ${items.map(it => `
@@ -295,7 +295,7 @@ function saveSettingsFromModal() {
   saveSettings({
     apiKey:      document.getElementById('set-api-key').value.trim(),
     model:       document.getElementById('set-model').value,
-    studioName:  document.getElementById('set-studio-name').value.trim() || 'WebStudio Duisburg',
+    studioName:  document.getElementById('set-studio-name').value.trim() || 'Tim-Ulrich-Webstudio',
     studioCity:  document.getElementById('set-studio-city').value.trim() || 'Duisburg',
     studioEmail: document.getElementById('set-studio-mail').value.trim() || 'weblabduisburg@gmail.com',
     wishFormBaseUrl: document.getElementById('set-wish-url').value.trim(),

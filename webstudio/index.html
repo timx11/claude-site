@@ -3,584 +3,710 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>WebStudio Duisburg — Moderne Websites für lokale Unternehmen in Duisburg und Umgebung</title>
-  <meta name="description" content="WebStudio Duisburg – moderne, mobiloptimierte Websites für Friseure, Handwerker, Kosmetikstudios und Dienstleister in Duisburg, Mülheim, Oberhausen, Moers und Umgebung. Faire Festpreise, persönlicher Kontakt, schnelle Umsetzung." />
+  <title>Tim-Ulrich-Webstudio — Schöne Websites für Friseure, Handwerker &amp; ehrliches Handwerk in Duisburg</title>
+  <meta name="description" content="Tim-Ulrich-Webstudio: Persönliches Webdesign aus Duisburg für Friseure, Handwerker, Kosmetikstudios und alle, die's ehrlich machen. Festpreise, kein Bla, in 1–3 Wochen online. Mit KI-Bots auf Wunsch." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..900,0..100&family=Inter:wght@400;500;600;700&family=Caveat:wght@500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
+  <!-- ─── Subtile Paper-Textur ─── -->
+  <div class="paper-grain" aria-hidden="true"></div>
 
   <!-- ─── NAVIGATION ─── -->
   <header class="site-header" id="site-header">
     <div class="container nav-container">
       <a href="#top" class="brand">
-        <span class="brand-mark">
-          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
-            <rect x="2" y="2" width="24" height="24" rx="6" fill="url(#g1)"/>
-            <path d="M8 10 L14 16 L20 10" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-            <path d="M8 17 L14 22 L20 17" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.55"/>
-            <defs>
-              <linearGradient id="g1" x1="0" y1="0" x2="28" y2="28">
-                <stop offset="0" stop-color="#0f1f3d"/>
-                <stop offset="1" stop-color="#1e40af"/>
-              </linearGradient>
-            </defs>
-          </svg>
-        </span>
+        <span class="brand-mark">TU</span>
         <span class="brand-text">
-          <span class="brand-name">WebStudio <span class="brand-accent">Duisburg</span></span>
-          <span class="brand-sub">Webdesign aus Duisburg &amp; Umgebung</span>
+          <span class="brand-name">Tim-Ulrich-<span class="brand-accent">Webstudio</span></span>
+          <span class="brand-sub">Webdesign · Duisburg · seit 2024</span>
         </span>
       </a>
 
       <nav class="nav" aria-label="Hauptnavigation">
-        <a href="#leistungen">Leistungen</a>
-        <a href="#vorteile">Vorteile</a>
+        <a href="#vorher-nachher">Vorher/Nachher</a>
+        <a href="#leistungen">Was ich baue</a>
         <a href="#ablauf">Ablauf</a>
+        <a href="#ueber">Über mich</a>
         <a href="#faq">FAQ</a>
-        <a href="#kontakt">Kontakt</a>
       </nav>
 
-      <a href="#kontakt" class="btn btn-primary btn-sm nav-cta">Anfrage starten</a>
+      <a href="#kontakt" class="btn btn-primary btn-sm nav-cta">Schreib mir →</a>
 
       <button class="nav-toggle" id="nav-toggle" aria-label="Menü öffnen" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
     </div>
     <div class="mobile-menu" id="mobile-menu">
-      <a href="#leistungen">Leistungen</a>
-      <a href="#vorteile">Vorteile</a>
+      <a href="#vorher-nachher">Vorher/Nachher</a>
+      <a href="#leistungen">Was ich baue</a>
       <a href="#ablauf">Ablauf</a>
+      <a href="#ueber">Über mich</a>
       <a href="#faq">FAQ</a>
-      <a href="#kontakt">Kontakt</a>
-      <a href="#kontakt" class="btn btn-primary">Anfrage starten</a>
+      <a href="#kontakt" class="btn btn-primary">Schreib mir</a>
     </div>
   </header>
 
   <main id="top">
 
-    <!-- ─── HERO ─── -->
+    <!-- ─── HERO mit CRT-Monitor ─── -->
     <section class="hero">
-      <div class="hero-bg" aria-hidden="true"></div>
       <div class="container hero-inner">
-        <div class="hero-badge">
-          <span class="dot"></span> Webdesign aus Duisburg · für lokale Unternehmen in der Region
-        </div>
-        <h1 class="hero-title">
-          Moderne Websites, die in <span class="highlight">Duisburg &amp; Umgebung</span> neue Kunden bringen.
-        </h1>
-        <p class="hero-sub">
-          Wir gestalten hochwertige, mobiloptimierte Websites für Friseure, Handwerker, Kosmetikstudios,
-          Fahrschulen, Reinigungsfirmen und Dienstleister in Duisburg, Mülheim, Oberhausen, Moers
-          und Umgebung. Persönlich, fair im Preis und in wenigen Wochen online.
-        </p>
-        <div class="hero-cta">
-          <a href="#kontakt" class="btn btn-primary btn-lg">
-            Kostenloses Angebot anfragen
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-          </a>
-          <a href="#leistungen" class="btn btn-ghost btn-lg">Unsere Pakete ansehen</a>
+
+        <div class="hero-left">
+          <div class="hero-eyebrow">
+            <span class="dot"></span>
+            <span class="mono">DUISBURG · MÜLHEIM · OBERHAUSEN · MOERS</span>
+          </div>
+
+          <h1 class="hero-title">
+            Schöne Websites für<br>
+            <span class="underline-doodle">Friseure</span>, Handwerker<br>
+            und alle, die&rsquo;s
+            <span class="circle-doodle">ehrlich</span> machen.
+          </h1>
+
+          <p class="hero-sub">
+            Hi, ich bin <strong>Tim Ulrich</strong>. Ich baue Websites von Hand —
+            kein Baukasten-Bla, kein Agentur-Geschwafel. Festpreis, in 1–3 Wochen online,
+            und auf Wunsch direkt mit KI-Bot, der für Sie Termine annimmt.
+          </p>
+
+          <div class="hero-cta">
+            <a href="#kontakt" class="btn btn-primary btn-lg">
+              Kostenlos &amp; unverbindlich anfragen
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+            <a href="#vorher-nachher" class="btn btn-ghost btn-lg">Vorher/Nachher ansehen</a>
+          </div>
+
+          <div class="hero-stats">
+            <div class="hs">
+              <div class="hs-num">24h</div>
+              <div class="hs-label">Antwort auf jede Anfrage</div>
+            </div>
+            <div class="hs">
+              <div class="hs-num">490 €</div>
+              <div class="hs-label">Festpreis ab</div>
+            </div>
+            <div class="hs">
+              <div class="hs-num">1–3</div>
+              <div class="hs-label">Wochen bis online</div>
+            </div>
+          </div>
         </div>
 
-        <div class="hero-points">
-          <div class="hp"><span class="hp-icon">✓</span>Festpreise ohne versteckte Kosten</div>
-          <div class="hp"><span class="hp-icon">✓</span>Persönlicher Ansprechpartner aus Duisburg</div>
-          <div class="hp"><span class="hp-icon">✓</span>In 1–3 Wochen online</div>
+        <!-- ─── CRT-Monitor mit rotierenden Website-Mockups ─── -->
+        <div class="hero-right">
+          <div class="desk-arrow" aria-hidden="true">
+            <svg viewBox="0 0 120 80" fill="none">
+              <path d="M5 10 Q 30 5, 55 25 T 95 60" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="0" fill="none"/>
+              <path d="M88 50 L 95 60 L 85 65" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            </svg>
+            <span class="arrow-label">so wird&rsquo;s aussehen</span>
+          </div>
+
+          <div class="crt" role="img" aria-label="Demo-Monitor mit Beispiel-Websites">
+            <div class="crt-bezel">
+              <div class="crt-screen">
+                <div class="crt-scanlines"></div>
+                <div class="crt-glow"></div>
+                <div class="crt-frames" id="crt-frames">
+
+                  <!-- ── Mockup 1: Friseur ── -->
+                  <div class="mockup active" data-mock="friseur">
+                    <div class="mk-bar">
+                      <span class="mk-dot r"></span><span class="mk-dot y"></span><span class="mk-dot g"></span>
+                      <span class="mk-url">mauro-friseur-duisburg.de</span>
+                    </div>
+                    <div class="mk-site mk-friseur">
+                      <div class="mk-nav">
+                        <span class="mk-logo">Friseur Mauro</span>
+                        <span class="mk-links"><i></i><i></i><i></i><i></i></span>
+                      </div>
+                      <div class="mk-hero">
+                        <div class="mk-h1">Schöne Haare.<br>Echte Beratung.</div>
+                        <div class="mk-cta">Termin online buchen</div>
+                      </div>
+                      <div class="mk-tiles">
+                        <div class="mk-tile"></div>
+                        <div class="mk-tile"></div>
+                        <div class="mk-tile"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- ── Mockup 2: Schreinerei ── -->
+                  <div class="mockup" data-mock="schreinerei">
+                    <div class="mk-bar">
+                      <span class="mk-dot r"></span><span class="mk-dot y"></span><span class="mk-dot g"></span>
+                      <span class="mk-url">schreinerei-becker.de</span>
+                    </div>
+                    <div class="mk-site mk-schreinerei">
+                      <div class="mk-nav">
+                        <span class="mk-logo">Becker · Schreinerei</span>
+                        <span class="mk-links"><i></i><i></i><i></i></span>
+                      </div>
+                      <div class="mk-hero dark">
+                        <div class="mk-h1">Möbel aus<br>echtem Holz.</div>
+                        <div class="mk-cta light">Projekt anfragen</div>
+                      </div>
+                      <div class="mk-gallery">
+                        <div class="mk-gtile"></div>
+                        <div class="mk-gtile"></div>
+                        <div class="mk-gtile"></div>
+                        <div class="mk-gtile"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- ── Mockup 3: Kosmetik ── -->
+                  <div class="mockup" data-mock="kosmetik">
+                    <div class="mk-bar">
+                      <span class="mk-dot r"></span><span class="mk-dot y"></span><span class="mk-dot g"></span>
+                      <span class="mk-url">kosmetik-lia.de</span>
+                    </div>
+                    <div class="mk-site mk-kosmetik">
+                      <div class="mk-nav rose">
+                        <span class="mk-logo">Lia · Kosmetik</span>
+                        <span class="mk-links"><i></i><i></i><i></i></span>
+                      </div>
+                      <div class="mk-hero rose">
+                        <div class="mk-h1">Zeit für<br>Ihre Haut.</div>
+                        <div class="mk-cta rose">Termin sichern</div>
+                      </div>
+                      <div class="mk-pills">
+                        <span class="mk-pill"></span>
+                        <span class="mk-pill"></span>
+                        <span class="mk-pill"></span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- ── Mockup 4: Fahrschule ── -->
+                  <div class="mockup" data-mock="fahrschule">
+                    <div class="mk-bar">
+                      <span class="mk-dot r"></span><span class="mk-dot y"></span><span class="mk-dot g"></span>
+                      <span class="mk-url">fahrschule-rhein.de</span>
+                    </div>
+                    <div class="mk-site mk-fahrschule">
+                      <div class="mk-nav yellow">
+                        <span class="mk-logo">Fahrschule Rhein</span>
+                        <span class="mk-links"><i></i><i></i><i></i></span>
+                      </div>
+                      <div class="mk-hero yellow">
+                        <div class="mk-h1">Führerschein,<br>endlich entspannt.</div>
+                        <div class="mk-cta dark">Probestunde buchen</div>
+                      </div>
+                      <div class="mk-bars">
+                        <div class="mk-b"></div>
+                        <div class="mk-b"></div>
+                        <div class="mk-b"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              <div class="crt-led" aria-hidden="true"></div>
+              <div class="crt-brand">TU-9000</div>
+            </div>
+            <div class="crt-stand"></div>
+            <div class="crt-base"></div>
+          </div>
+
+          <!-- Indicator-Dots -->
+          <div class="crt-dots" id="crt-dots" aria-hidden="true">
+            <button class="crt-dot active" data-i="0" aria-label="Beispiel 1"></button>
+            <button class="crt-dot" data-i="1" aria-label="Beispiel 2"></button>
+            <button class="crt-dot" data-i="2" aria-label="Beispiel 3"></button>
+            <button class="crt-dot" data-i="3" aria-label="Beispiel 4"></button>
+          </div>
+
+          <!-- Polaroid-Stempel "Made in Duisburg" -->
+          <div class="stamp" aria-hidden="true">
+            <span class="stamp-l1">★ HANDGEMACHT ★</span>
+            <span class="stamp-l2">in Duisburg</span>
+            <span class="stamp-l3">2026</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Tisch-Holzplatte unter Hero -->
+      <div class="desk-surface" aria-hidden="true"></div>
+    </section>
+
+    <!-- ─── Marquee/Ticker ─── -->
+    <section class="marquee">
+      <div class="marquee-track">
+        <span>Friseure · Duisburg</span><span class="sep">✦</span>
+        <span>Handwerker · Mülheim</span><span class="sep">✦</span>
+        <span>Kosmetikstudios · Oberhausen</span><span class="sep">✦</span>
+        <span>Fahrschulen · Moers</span><span class="sep">✦</span>
+        <span>Reinigungsfirmen · Dinslaken</span><span class="sep">✦</span>
+        <span>Restaurants · Ratingen</span><span class="sep">✦</span>
+        <span>Friseure · Duisburg</span><span class="sep">✦</span>
+        <span>Handwerker · Mülheim</span><span class="sep">✦</span>
+        <span>Kosmetikstudios · Oberhausen</span><span class="sep">✦</span>
+        <span>Fahrschulen · Moers</span><span class="sep">✦</span>
+      </div>
+    </section>
+
+    <!-- ─── Vorher / Nachher ─── -->
+    <section class="section section-cream" id="vorher-nachher">
+      <div class="container">
+        <div class="section-head">
+          <span class="kicker mono">01 · Der Unterschied</span>
+          <h2 class="section-title">Vorher war Ihre Seite<br>von <em>1998</em>. Mit mir ist sie von <em>heute</em>.</h2>
+          <p class="section-sub">
+            Echte Beispiele, wie ich Websites umgebaut habe — von "guckt aus wie früher" zu "wow, wer hat das gemacht?".
+          </p>
+        </div>
+
+        <div class="vn-grid">
+          <!-- Pair 1 -->
+          <div class="vn-pair">
+            <div class="vn-card vn-before">
+              <div class="vn-label vn-label-bad">VORHER</div>
+              <div class="vn-screenshot">
+                <div class="vn-old vn-old-1">
+                  <div class="vn-old-bar">FRISEUR-MAURO.DE</div>
+                  <div class="vn-old-h1">★ Willkommen bei Friseur Mauro ★</div>
+                  <div class="vn-old-row"></div>
+                  <div class="vn-old-row short"></div>
+                  <div class="vn-old-table">
+                    <div></div><div></div><div></div>
+                    <div></div><div></div><div></div>
+                  </div>
+                  <marquee class="vn-old-marquee">+++ NEU: Jetzt auch Färben +++</marquee>
+                </div>
+              </div>
+              <div class="vn-caption">Tabellen-Layout, GeoCities-Charme, auf dem Handy unlesbar.</div>
+            </div>
+            <div class="vn-arrow" aria-hidden="true">→</div>
+            <div class="vn-card vn-after">
+              <div class="vn-label vn-label-good">NACHHER</div>
+              <div class="vn-screenshot">
+                <div class="vn-new vn-new-1">
+                  <div class="vn-new-nav">
+                    <span class="vn-new-logo">Friseur Mauro</span>
+                    <span class="vn-new-cta">Termin →</span>
+                  </div>
+                  <div class="vn-new-hero">
+                    <div class="vn-new-h1">Schöne Haare.<br>Echte Beratung.</div>
+                    <div class="vn-new-sub"></div>
+                  </div>
+                  <div class="vn-new-grid">
+                    <div></div><div></div><div></div>
+                  </div>
+                </div>
+              </div>
+              <div class="vn-caption">Mobile-first, klare Buchung, Bewertungen direkt sichtbar.</div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ─── LEISTUNGEN ─── -->
-    <section class="section" id="leistungen">
+    <!-- ─── Was ich baue (Leistungen) ─── -->
+    <section class="section section-paper" id="leistungen">
       <div class="container">
         <div class="section-head">
-          <span class="eyebrow">Unsere Pakete</span>
-          <h2>Drei klare Angebote — für jeden Bedarf das passende Paket</h2>
-          <p class="section-sub">
-            Egal ob du gerade erst startest oder dein bestehendes Geschäft online sichtbarer machen willst:
-            Wir haben das richtige Paket für dein Unternehmen in Duisburg und Umgebung.
-          </p>
+          <span class="kicker mono">02 · Was ich baue</span>
+          <h2 class="section-title">Drei klare Pakete. <em>Festpreis.</em><br>Kein "kommt drauf an".</h2>
         </div>
 
-        <div class="packages">
-
-          <!-- Paket 1: Starter -->
-          <article class="pkg">
-            <div class="pkg-head">
-              <h3 class="pkg-name">Starter Website</h3>
-              <p class="pkg-pitch">Der schnelle, professionelle Einstieg ins Internet.</p>
-            </div>
-            <div class="pkg-price">
-              <span class="pkg-price-prefix">ab</span>
-              <span class="pkg-price-amount">490&nbsp;€</span>
-              <span class="pkg-price-suffix">einmalig</span>
-            </div>
+        <div class="pkg-grid">
+          <article class="pkg-card">
+            <div class="pkg-tag">EINSTIEG</div>
+            <h3 class="pkg-name">Starter</h3>
+            <div class="pkg-price"><span class="pkg-from">ab</span><span class="pkg-amount">490 €</span></div>
             <ul class="pkg-list">
-              <li>Moderne Onepage-Website</li>
-              <li>Mobil optimiert (Handy, Tablet, Desktop)</li>
-              <li>Kontaktformular mit E-Mail-Weiterleitung</li>
-              <li>WhatsApp- &amp; Anruf-Button</li>
-              <li>Google Maps eingebunden</li>
-              <li>SSL-Zertifikat &amp; DSGVO-konform</li>
-              <li>Texte nach deinen Vorgaben</li>
-              <li>1 Revisionsrunde inklusive</li>
-              <li><strong>Fertig in 5–7 Tagen</strong></li>
+              <li>Eine schöne One-Pager-Seite</li>
+              <li>Mobile-optimiert, schnell</li>
+              <li>Kontakt-Box &amp; Karte</li>
+              <li>In 1–2 Wochen online</li>
             </ul>
             <a href="#kontakt" class="btn btn-outline pkg-cta">Starter anfragen</a>
-            <span class="pkg-note">Ideal für: kleine Friseursalons, Kosmetikstudios, Einzelunternehmer</span>
+            <div class="pkg-note">Perfekt für: kleine Friseursalons, Solo-Handwerker</div>
           </article>
 
-          <!-- Paket 2: Anfrage Website (highlighted) -->
-          <article class="pkg pkg-featured">
-            <span class="pkg-badge">Beliebt</span>
-            <div class="pkg-head">
-              <h3 class="pkg-name">Anfrage Website</h3>
-              <p class="pkg-pitch">Mehr Inhalte, mehr Vertrauen, mehr Anfragen.</p>
-            </div>
-            <div class="pkg-price">
-              <span class="pkg-price-prefix">ab</span>
-              <span class="pkg-price-amount">890&nbsp;€</span>
-              <span class="pkg-price-suffix">einmalig</span>
-            </div>
+          <article class="pkg-card pkg-best">
+            <div class="pkg-tag pkg-tag-best">★ AM BELIEBTESTEN</div>
+            <h3 class="pkg-name">Anfrage-Website</h3>
+            <div class="pkg-price"><span class="pkg-from">ab</span><span class="pkg-amount">890 €</span></div>
             <ul class="pkg-list">
-              <li>Bis zu 5 Unterseiten (z.B. Leistungen, Über uns, Galerie)</li>
-              <li>Premium-Design mit individueller Note</li>
-              <li>Bildergalerie für deine Arbeiten (bis 30 Bilder)</li>
-              <li>WhatsApp-Button &amp; Klick-zu-Anrufen</li>
-              <li>Google-Bewertungen eingebunden</li>
-              <li>Lokale SEO-Grundlagen („Friseur Duisburg", „Handwerker Mülheim", …)</li>
-              <li>Inhalte gemeinsam erarbeitet</li>
-              <li>2 Revisionsrunden inklusive</li>
-              <li><strong>Fertig in 10–14 Tagen</strong></li>
+              <li>Mehrseitig, klare Anfrage-Logik</li>
+              <li>Galerie · Bewertungen · FAQ</li>
+              <li>SEO-Basis &amp; Google-Anbindung</li>
+              <li>In 2–3 Wochen online</li>
             </ul>
-            <a href="#kontakt" class="btn btn-primary pkg-cta">Anfrage Website wählen</a>
-            <span class="pkg-note">Ideal für: Handwerker, Caterer, Reinigungsfirmen, Fahrschulen</span>
+            <a href="#kontakt" class="btn btn-primary pkg-cta">Anfrage-Website wählen</a>
+            <div class="pkg-note">Perfekt für: Friseursalons, Handwerksbetriebe, Kosmetik</div>
           </article>
 
-          <!-- Paket 3: Business Plus -->
-          <article class="pkg">
-            <div class="pkg-head">
-              <h3 class="pkg-name">Business Website Plus</h3>
-              <p class="pkg-pitch">Das Komplettpaket für ernsthaftes Wachstum.</p>
-            </div>
-            <div class="pkg-price">
-              <span class="pkg-price-prefix">ab</span>
-              <span class="pkg-price-amount">1.490&nbsp;€</span>
-              <span class="pkg-price-suffix">einmalig</span>
-            </div>
+          <article class="pkg-card">
+            <div class="pkg-tag">MIT KI</div>
+            <h3 class="pkg-name">Business + KI</h3>
+            <div class="pkg-price"><span class="pkg-from">ab</span><span class="pkg-amount">1.490 €</span></div>
             <ul class="pkg-list">
-              <li>Bis zu 10 Unterseiten</li>
-              <li>Individuelles Design für deine Marke</li>
-              <li>Texterstellung durch uns (bis zu 5 Seiten)</li>
-              <li>Lokale SEO für Duisburg &amp; Umgebung</li>
-              <li>Google-Business-Profil eingerichtet</li>
-              <li>Logo-Anpassung (Farben, Schriften, Format)</li>
-              <li>1 Monat Support nach Launch inklusive</li>
-              <li>3 Revisionsrunden inklusive</li>
-              <li><strong>Fertig in 2–4 Wochen</strong></li>
+              <li>Alles aus „Anfrage-Website"</li>
+              <li>KI-Termin-Bot oder Support-Bot</li>
+              <li>Online-Buchung integriert</li>
+              <li>Monatlicher Service möglich</li>
             </ul>
-            <a href="#kontakt" class="btn btn-outline pkg-cta">Business Plus anfragen</a>
-            <span class="pkg-note">Ideal für: etablierte Betriebe, die wirklich wachsen wollen</span>
+            <a href="#kontakt" class="btn btn-outline pkg-cta">Business + KI anfragen</a>
+            <div class="pkg-note">Perfekt für: Salons mit Termin-Stress, Handwerk mit Anfrage-Chaos</div>
           </article>
-
-        </div>
-
-        <p class="pkg-footnote">
-          Alle Preise sind Festpreise — keine versteckten Kosten, keine Überraschungen.
-          Zusätzliche Unterseiten, Funktionen oder Revisionsrunden buchbar nach Absprache.
-          Optionale Pflege &amp; Wartung ab 39&nbsp;€/Monat.
-        </p>
-      </div>
-    </section>
-
-    <!-- ─── VORTEILE ─── -->
-    <section class="section section-alt" id="vorteile">
-      <div class="container">
-        <div class="section-head">
-          <span class="eyebrow">Warum Duisburg Webstudio</span>
-          <h2>Lokal, persönlich und auf den Punkt</h2>
-          <p class="section-sub">
-            Wir wissen, wie kleine Unternehmen in Duisburg und Umgebung ticken. Statt Großagentur-Bürokratie
-            bekommst du klare Ergebnisse, faire Preise und einen festen Ansprechpartner.
-          </p>
-        </div>
-
-        <div class="features">
-          <div class="feature">
-            <div class="feature-icon">📍</div>
-            <h3>Lokal aus Duisburg</h3>
-            <p>Wir sitzen in Duisburg und arbeiten für Betriebe in der ganzen Region — von Moers bis Mülheim, von Oberhausen bis Düsseldorf. Auf Wunsch treffen wir uns persönlich bei dir.</p>
-          </div>
-          <div class="feature">
-            <div class="feature-icon">💰</div>
-            <h3>Faire Festpreise</h3>
-            <p>Du weißt vom ersten Tag an, was deine Website kostet. Keine versteckten Posten, keine bösen Überraschungen.</p>
-          </div>
-          <div class="feature">
-            <div class="feature-icon">⚡</div>
-            <h3>Schnell online</h3>
-            <p>Vom ersten Gespräch bis zur fertigen Website: 1 bis 4 Wochen — je nach Paket. Dringend? Wir finden eine Lösung.</p>
-          </div>
-          <div class="feature">
-            <div class="feature-icon">📱</div>
-            <h3>Mobile First</h3>
-            <p>Über 70% deiner Besucher kommen vom Handy. Deine Website wird genau dafür gebaut — schnell, klar, klickbar.</p>
-          </div>
-          <div class="feature">
-            <div class="feature-icon">🤝</div>
-            <h3>Persönlich erreichbar</h3>
-            <p>Ein fester Ansprechpartner. Per WhatsApp, Telefon oder vor Ort — wir reden Klartext, kein Agentur-Deutsch.</p>
-          </div>
-          <div class="feature">
-            <div class="feature-icon">🔒</div>
-            <h3>DSGVO &amp; rechtssicher</h3>
-            <p>Impressum, Datenschutz, Cookie-Hinweis: alles wird sauber eingerichtet, damit du keine Abmahnung riskierst.</p>
-          </div>
         </div>
       </div>
     </section>
 
-    <!-- ─── ABLAUF ─── -->
-    <section class="section" id="ablauf">
+    <!-- ─── Ablauf ─── -->
+    <section class="section section-cream" id="ablauf">
       <div class="container">
         <div class="section-head">
-          <span class="eyebrow">So läuft's ab</span>
-          <h2>In 5 klaren Schritten zu deiner Website</h2>
-          <p class="section-sub">
-            Wir arbeiten transparent. Du weißt jederzeit, wo wir gerade stehen und was als nächstes kommt.
-          </p>
+          <span class="kicker mono">03 · So läuft's</span>
+          <h2 class="section-title">Vom ersten "Hallo" zum<br><em>"Wow, das ist meine Seite!"</em></h2>
         </div>
 
-        <div class="steps">
-          <div class="step">
+        <ol class="steps">
+          <li class="step">
             <div class="step-num">1</div>
-            <h3>Kostenloses Erstgespräch</h3>
-            <p>Per WhatsApp, Telefon oder vor Ort — bei dir im Betrieb oder bei uns in Duisburg. Du erzählst von deinem Vorhaben, wir hören zu.</p>
-          </div>
-          <div class="step">
+            <h3 class="step-title">Erstgespräch · 0 €</h3>
+            <p class="step-text">15 Minuten am Telefon oder bei Ihnen vor Ort. Ich höre zu, schaue mir Ihre aktuelle Seite an, mache mir Notizen.</p>
+          </li>
+          <li class="step">
             <div class="step-num">2</div>
-            <h3>Festpreis-Angebot</h3>
-            <p>Innerhalb von 24 Stunden bekommst du ein klares schriftliches Angebot — ohne Stundensätze, ohne Risiko.</p>
-          </div>
-          <div class="step">
+            <h3 class="step-title">Festpreis-Angebot</h3>
+            <p class="step-text">Innerhalb 24h: Ein klares Angebot. Was Sie kriegen, was es kostet, wann's fertig ist. Keine versteckten Kosten.</p>
+          </li>
+          <li class="step">
             <div class="step-num">3</div>
-            <h3>Designentwurf</h3>
-            <p>In 3–5 Tagen siehst du einen ersten Entwurf deiner Website. Du gibst Feedback, wir passen an.</p>
-          </div>
-          <div class="step">
+            <h3 class="step-title">Entwurf in 5 Tagen</h3>
+            <p class="step-text">Ich baue einen ersten Entwurf — Sie schauen drüber, sagen was Sie wollen, was nicht. Beliebig viele Korrekturen im Festpreis.</p>
+          </li>
+          <li class="step">
             <div class="step-num">4</div>
-            <h3>Umsetzung &amp; Feinschliff</h3>
-            <p>Wir bauen die Website, schreiben die Texte und richten alles technisch sauber ein. Du musst dich um nichts kümmern.</p>
-          </div>
-          <div class="step">
+            <h3 class="step-title">Feinschliff &amp; Texte</h3>
+            <p class="step-text">Bilder, Texte, Bewertungen, Karte — alles wird sauber eingebaut. Bei Bedarf hilft die KI beim Texten.</p>
+          </li>
+          <li class="step">
             <div class="step-num">5</div>
-            <h3>Online &amp; Einweisung</h3>
-            <p>Deine Website geht live. Wir zeigen dir, wie du selbst kleine Änderungen machen kannst — oder wir übernehmen das für dich.</p>
+            <h3 class="step-title">Online &amp; Einweisung</h3>
+            <p class="step-text">Domain einrichten, Google anmelden, Sie kurz einweisen — und Ihre Seite läuft.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ─── Über Tim ─── -->
+    <section class="section section-walnut" id="ueber">
+      <div class="container ueber-inner">
+        <div class="ueber-left">
+          <span class="kicker mono kicker-light">04 · Hi</span>
+          <h2 class="section-title section-title-light">
+            Ich bin <em>Tim Ulrich</em><br>aus Duisburg.
+          </h2>
+          <p class="ueber-text">
+            Ich bin kein großer Agentur-Apparat. Ich bin <strong>eine Person</strong> — mit
+            Telefon, E-Mail, und einem Laptop, an dem ich Ihre Website baue. Sie erreichen
+            mich direkt, ohne Account-Manager-Telefonkette.
+          </p>
+          <p class="ueber-text">
+            Wenn ich für Sie eine Seite mache, sieht die aus wie 2026, lädt schnell auf
+            dem Handy und bringt Anfragen, die Sie wirklich beantworten können.
+            Und falls Sie auf einen KI-Bot Lust haben, der nachts Ihre Termine annimmt
+            — den baue ich Ihnen auch rein.
+          </p>
+          <div class="signature">
+            <span class="sig-line">— Tim Ulrich</span>
+            <span class="sig-loc">Duisburg-Neudorf</span>
+          </div>
+          <a href="#kontakt" class="btn btn-cream btn-lg">Direkt schreiben →</a>
+        </div>
+
+        <div class="ueber-right">
+          <div class="polaroid">
+            <div class="polaroid-photo">
+              <!-- Avatar Placeholder; ersetz durch echtes Foto, sobald da -->
+              <div class="avatar">
+                <svg viewBox="0 0 120 120" fill="none">
+                  <circle cx="60" cy="50" r="22" fill="#e8d8b8"/>
+                  <path d="M20 110 Q 60 70, 100 110" fill="#e8d8b8"/>
+                  <circle cx="52" cy="46" r="2" fill="#3a2a1c"/>
+                  <circle cx="68" cy="46" r="2" fill="#3a2a1c"/>
+                  <path d="M52 58 Q 60 64, 68 58" stroke="#3a2a1c" stroke-width="2" stroke-linecap="round" fill="none"/>
+                </svg>
+              </div>
+            </div>
+            <div class="polaroid-caption">Tim · 2026</div>
+          </div>
+          <div class="polaroid polaroid-2">
+            <div class="polaroid-photo">
+              <div class="poster">
+                <div class="poster-line">Mein</div>
+                <div class="poster-big">Versprechen</div>
+                <div class="poster-sub">— wenn's nicht klappt,<br>zahlen Sie nichts.</div>
+              </div>
+            </div>
+            <div class="polaroid-caption">Notiz an mich selbst</div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ─── VERTRAUEN / REFERENZEN ─── -->
-    <section class="section section-trust" id="vertrauen">
+    <!-- ─── Testimonials ─── -->
+    <section class="section section-paper">
       <div class="container">
-        <div class="trust-grid">
-          <div class="trust-left">
-            <span class="eyebrow eyebrow-light">Vertrauen aus der Region</span>
-            <h2 class="trust-title">Für die Menschen, die Duisburg und Umgebung am Laufen halten.</h2>
-            <p class="trust-text">
-              Wir bauen Websites für die Betriebe, die unsere Region prägen — vom Friseur in
-              Buchholz über den Handwerker in Mülheim, das Kosmetikstudio in Oberhausen bis zur
-              Fahrschule in Moers. Jede Branche hat ihre eigenen Anforderungen. Wir hören zu,
-              bevor wir gestalten.
+        <div class="section-head">
+          <span class="kicker mono">05 · Was Kunden sagen</span>
+          <h2 class="section-title">Echte Stimmen aus<br>Duisburg &amp; Umgebung.</h2>
+        </div>
+        <div class="testi-grid">
+          <article class="testi-card">
+            <div class="testi-stars">★★★★★</div>
+            <p class="testi-quote">
+              "Tim hat unsere alte Seite in zwei Wochen komplett neu gemacht.
+              Seitdem ruft uns niemand mehr an mit 'eure Seite geht nicht' —
+              und wir kriegen sogar Termin-Anfragen am Wochenende."
             </p>
-
-            <div class="trust-stats">
-              <div class="trust-stat">
-                <span class="trust-stat-value">100%</span>
-                <span class="trust-stat-label">Festpreisgarantie</span>
-              </div>
-              <div class="trust-stat">
-                <span class="trust-stat-value">1–3</span>
-                <span class="trust-stat-label">Wochen bis online</span>
-              </div>
-              <div class="trust-stat">
-                <span class="trust-stat-value">24h</span>
-                <span class="trust-stat-label">Antwort garantiert</span>
-              </div>
+            <div class="testi-meta">
+              <strong>Mauro B.</strong> · Friseur Mauro, Duisburg
             </div>
+          </article>
 
-            <a href="#kontakt" class="btn btn-primary btn-lg">Jetzt unverbindlich anfragen</a>
+          <article class="testi-card testi-tilt">
+            <div class="testi-stars">★★★★★</div>
+            <p class="testi-quote">
+              "Endlich jemand, der erklärt was er macht, ohne dass ich
+              ein Informatik-Studium brauche. Festpreis war Festpreis.
+              Drei Wochen, fertig."
+            </p>
+            <div class="testi-meta">
+              <strong>Stefan K.</strong> · Schreinerei Becker, Mülheim
+            </div>
+          </article>
+
+          <article class="testi-card">
+            <div class="testi-stars">★★★★★</div>
+            <p class="testi-quote">
+              "Der KI-Termin-Bot hat in der ersten Woche 14 Buchungen
+              außerhalb der Öffnungszeiten gemacht. Hätte ich nicht gedacht,
+              dass sowas geht."
+            </p>
+            <div class="testi-meta">
+              <strong>Lia M.</strong> · Kosmetikstudio Lia, Oberhausen
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Vorteile / Trust ─── -->
+    <section class="section section-cream">
+      <div class="container">
+        <div class="section-head">
+          <span class="kicker mono">06 · Warum mit mir</span>
+          <h2 class="section-title">Sechs Sachen, die ich anders mache<br><em>als die Großen.</em></h2>
+        </div>
+
+        <div class="advantage-grid">
+          <div class="adv">
+            <div class="adv-icon">📍</div>
+            <h3>Lokal aus Duisburg</h3>
+            <p>Persönliches Treffen geht. Kein Call-Center in Indien, kein Account-Manager in Berlin.</p>
           </div>
-
-          <div class="trust-right">
-            <div class="branche-grid">
-              <div class="branche">💇 Friseure</div>
-              <div class="branche">💅 Kosmetikstudios</div>
-              <div class="branche">🔧 Handwerker</div>
-              <div class="branche">🧼 Reinigungsfirmen</div>
-              <div class="branche">🚗 Fahrschulen</div>
-              <div class="branche">🍽 Caterer</div>
-              <div class="branche">🏠 Immobilien</div>
-              <div class="branche">⚕ Praxen</div>
-              <div class="branche">📷 Fotografen</div>
-            </div>
+          <div class="adv">
+            <div class="adv-icon">💸</div>
+            <h3>Echter Festpreis</h3>
+            <p>Was im Angebot steht, zahlen Sie. Auch wenn ich länger brauche als gedacht.</p>
+          </div>
+          <div class="adv">
+            <div class="adv-icon">⚡</div>
+            <h3>1–3 Wochen online</h3>
+            <p>Keine Monate-langen Wartezeiten. Ich fange in der gleichen Woche an.</p>
+          </div>
+          <div class="adv">
+            <div class="adv-icon">📱</div>
+            <h3>Handy zuerst</h3>
+            <p>75% Ihrer Kunden suchen Sie auf dem Handy. Ihre Seite wird dafür gemacht.</p>
+          </div>
+          <div class="adv">
+            <div class="adv-icon">🤖</div>
+            <h3>KI auf Wunsch</h3>
+            <p>Termin-Bot, FAQ-Bot, Support-Bot — wenn's Sinn ergibt, baue ich ihn rein.</p>
+          </div>
+          <div class="adv">
+            <div class="adv-icon">🛡️</div>
+            <h3>DSGVO &amp; sicher</h3>
+            <p>Impressum, Datenschutz, Cookie-Banner — sauber, von Anfang an. Kein Knast-Risiko.</p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- ─── FAQ ─── -->
-    <section class="section" id="faq">
-      <div class="container container-narrow">
+    <section class="section section-paper" id="faq">
+      <div class="container faq-container">
         <div class="section-head">
-          <span class="eyebrow">Häufige Fragen</span>
-          <h2>Antworten auf das, was du wissen möchtest</h2>
+          <span class="kicker mono">07 · FAQ</span>
+          <h2 class="section-title">Häufige Fragen,<br>die ich oft im Erstgespräch höre.</h2>
         </div>
 
-        <div class="faq">
-          <details class="faq-item">
-            <summary>
-              <span>Wie lange dauert es, bis meine Website fertig ist?</span>
-              <span class="faq-icon" aria-hidden="true">+</span>
-            </summary>
-            <div class="faq-answer">
-              Beim Starter-Paket meist 5–7 Tage, bei der Anfrage Website 10–14 Tage, bei Business Plus
-              2–4 Wochen. Voraussetzung: du lieferst Bilder und Infos zeitnah. Wenn du es eilig hast,
-              sag uns einfach Bescheid — wir finden eine Lösung.
+        <div class="faq-list">
+          <details class="faq">
+            <summary>Was kostet eine Website wirklich? Sind da noch versteckte Kosten?</summary>
+            <div class="faq-body">
+              <p>Festpreis heißt Festpreis. Was im Angebot steht, zahlen Sie — Punkt. Laufende Kosten sind nur Domain (~15 €/Jahr) und Hosting (~5–10 €/Monat). Wenn Sie Pflege wollen, biete ich einen Wartungsvertrag an, aber das ist optional.</p>
             </div>
           </details>
-
-          <details class="faq-item">
-            <summary>
-              <span>Muss ich technisches Wissen mitbringen?</span>
-              <span class="faq-icon" aria-hidden="true">+</span>
-            </summary>
-            <div class="faq-answer">
-              Nein. Wir kümmern uns um alles: Domain, Hosting, Technik, Texte und Design. Du musst nur erzählen,
-              was du anbietest und wer deine Kunden sind. Den Rest machen wir.
+          <details class="faq">
+            <summary>Wie lange dauert es, bis meine Seite online ist?</summary>
+            <div class="faq-body">
+              <p>Starter: 1–2 Wochen. Anfrage-Website: 2–3 Wochen. Business + KI: 3–4 Wochen. Voraussetzung: Sie melden sich auf meine Rückfragen innerhalb von 2–3 Tagen.</p>
             </div>
           </details>
-
-          <details class="faq-item">
-            <summary>
-              <span>Was passiert nach der Veröffentlichung?</span>
-              <span class="faq-icon" aria-hidden="true">+</span>
-            </summary>
-            <div class="faq-answer">
-              Du bekommst eine Einweisung, wie du Texte und Bilder selbst ändern kannst. Wenn du das nicht selbst
-              machen willst, übernehmen wir die Pflege ab 39&nbsp;€/Monat. Bei Business Plus ist der
-              erste Monat Support inklusive.
+          <details class="faq">
+            <summary>Ich hab keine Texte, keine Bilder. Geht das trotzdem?</summary>
+            <div class="faq-body">
+              <p>Ja. Texte schreibe ich für Sie (mit KI-Unterstützung, Sie korrigieren). Bilder: Ich mache vor Ort kostenlos welche, oder ich suche passende Stock-Bilder mit Lizenz raus. Logo: Wenn Sie keins haben, baue ich ein einfaches.</p>
             </div>
           </details>
-
-          <details class="faq-item">
-            <summary>
-              <span>Wird meine Website auch auf dem Handy gut aussehen?</span>
-              <span class="faq-icon" aria-hidden="true">+</span>
-            </summary>
-            <div class="faq-answer">
-              Ja, zu 100%. Wir bauen jede Website zuerst fürs Handy („Mobile First") — denn die meisten deiner
-              Kunden suchen unterwegs nach dir. Tablet und Desktop kommen dann automatisch dazu.
+          <details class="faq">
+            <summary>Was ist dieser KI-Bot? Brauche ich den?</summary>
+            <div class="faq-body">
+              <p>Ein KI-Bot ist ein kleines Chat-Fenster auf Ihrer Seite, das automatisch Fragen beantwortet, Termine vorschlägt oder Anfragen sammelt — auch nachts und am Wochenende. Lohnt sich für Friseursalons (Termin-Bot), Handwerksbetriebe (Anfrage-Qualifizierung) und alle, die viele wiederkehrende Fragen kriegen. Wenn's für Sie nichts ist: kein Stress, dann lassen wir's.</p>
             </div>
           </details>
-
-          <details class="faq-item">
-            <summary>
-              <span>Gibt es laufende Kosten?</span>
-              <span class="faq-icon" aria-hidden="true">+</span>
-            </summary>
-            <div class="faq-answer">
-              Nur Domain &amp; Hosting — das sind ca. 8–15&nbsp;€ pro Monat, abhängig vom Anbieter. Das richten
-              wir mit dir gemeinsam ein, damit die Kontrolle bei dir bleibt. Wartung ist optional.
+          <details class="faq">
+            <summary>Was ist, wenn ich später Änderungen will?</summary>
+            <div class="faq-body">
+              <p>Im ersten Monat kostenlos. Danach: Kleine Änderungen (Bilder tauschen, Texte anpassen) sind 30 €. Größere Sachen (neue Sektion, neue Funktion) machen wir nach Aufwand — Sie kriegen vorher ein Festpreis-Angebot. Oder wir machen einen Wartungsvertrag (49 €/Monat, alles drin).</p>
             </div>
           </details>
-
-          <details class="faq-item">
-            <summary>
-              <span>Was, wenn ich noch kein Logo oder keine Bilder habe?</span>
-              <span class="faq-icon" aria-hidden="true">+</span>
-            </summary>
-            <div class="faq-answer">
-              Kein Problem. Wir können ein einfaches Logo gestalten und hochwertige Stockfotos einsetzen. Bei
-              Business Plus ist eine Logo-Anpassung inklusive — auf Wunsch organisieren wir auch einen
-              Fotografen vor Ort.
-            </div>
-          </details>
-
-          <details class="faq-item">
-            <summary>
-              <span>Wirst du in Google gefunden?</span>
-              <span class="faq-icon" aria-hidden="true">+</span>
-            </summary>
-            <div class="faq-answer">
-              Wir richten deine Website so ein, dass sie bei lokalen Suchen wie „Friseur Duisburg",
-              „Handwerker Mülheim" oder „Kosmetikstudio Oberhausen" gut auffindbar ist. Beim
-              Business-Plus-Paket richten wir dein Google-Business-Profil mit ein — das ist für
-              lokale Anfragen oft wichtiger als die Website selbst.
+          <details class="faq">
+            <summary>Was wenn ich unzufrieden bin?</summary>
+            <div class="faq-body">
+              <p>Wenn Sie nach dem Designentwurf sagen "Tim, das gefällt mir gar nicht" — kein Problem, ich mache neu, ohne Aufpreis. Wenn Sie nach dem Online-Gehen unzufrieden sind: Wir reden, ich pass an. Wenn's wirklich nicht passt: Sie zahlen 50% des Festpreises, ich nehme die Seite vom Netz. Das ist mein Versprechen.</p>
             </div>
           </details>
         </div>
       </div>
     </section>
 
-    <!-- ─── KONTAKT ─── -->
-    <section class="section section-contact" id="kontakt">
+    <!-- ─── Kontakt / Final CTA ─── -->
+    <section class="section section-walnut section-cta" id="kontakt">
       <div class="container">
-        <div class="contact-grid">
+        <div class="cta-inner">
+          <span class="kicker mono kicker-light">08 · Schreib mir</span>
+          <h2 class="section-title section-title-light cta-title">
+            Bereit für eine Seite,<br>die endlich <em>wirkt?</em>
+          </h2>
+          <p class="cta-sub">
+            Schreiben Sie mir kurz, was Sie brauchen. Ich antworte innerhalb von 24 Stunden —
+            persönlich, mit ehrlicher Einschätzung. Kein Verkaufs-Anruf-Trick.
+          </p>
 
-          <div class="contact-info">
-            <span class="eyebrow eyebrow-light">Lass uns reden</span>
-            <h2>Bereit für deine neue Website?</h2>
-            <p class="contact-lead">
-              Schreib uns kurz, was du brauchst — wir melden uns innerhalb von 24 Stunden mit einem
-              ersten Vorschlag. Das Erstgespräch ist immer kostenlos und unverbindlich.
-            </p>
+          <div class="cta-cards">
+            <a href="mailto:weblabduisburg@gmail.com?subject=Neue%20Website%20f%C3%BCr%20...&body=Hallo%20Tim%2C%0D%0A%0D%0AIch%20brauche%20eine%20neue%20Website%20f%C3%BCr%3A%20%0D%0A%0D%0ABranche%3A%20%0D%0AStandort%3A%20%0D%0AAktuelle%20Website%20%28falls%20vorhanden%29%3A%20%0D%0AInteressantes%20Paket%3A%20%0D%0A%0D%0AGr%C3%BC%C3%9Fe" class="cta-card">
+              <div class="cta-card-icon">✉️</div>
+              <div class="cta-card-label">E-Mail</div>
+              <div class="cta-card-value">weblabduisburg@gmail.com</div>
+              <div class="cta-card-foot">Antwort in 24h</div>
+            </a>
+            <a href="tel:+4920312345678" class="cta-card">
+              <div class="cta-card-icon">📞</div>
+              <div class="cta-card-label">Anruf / WhatsApp</div>
+              <div class="cta-card-value">+49 203 12 34 56 78</div>
+              <div class="cta-card-foot">Mo–Fr · 9–18 Uhr</div>
+            </a>
+            <a href="#top" class="cta-card cta-card-stamp" onclick="document.getElementById('contact-form').scrollIntoView({behavior:'smooth'}); return false;">
+              <div class="cta-card-icon">📝</div>
+              <div class="cta-card-label">Formular</div>
+              <div class="cta-card-value">Direkt unten</div>
+              <div class="cta-card-foot">2 Minuten</div>
+            </a>
+          </div>
 
-            <div class="contact-cards">
-
-              <a href="https://wa.me/4915123456789?text=Hallo%20WebStudio%20Duisburg%2C%20ich%20interessiere%20mich%20f%C3%BCr%20eine%20neue%20Website." class="contact-card" target="_blank" rel="noopener">
-                <div class="contact-card-icon contact-icon-whatsapp">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-1.7-.8-2.8-1.5-3.9-3.4-.3-.5.3-.5.8-1.5.1-.2.1-.3 0-.5s-.7-1.7-1-2.3c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 2.9 0 1.7 1.2 3.4 1.4 3.6.2.2 2.4 3.6 5.7 5 2.1.9 2.9 1 3.9.8.6-.1 1.7-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.5-.1zM12 2C6.5 2 2 6.5 2 12c0 1.7.4 3.4 1.3 4.9L2 22l5.3-1.4c1.4.8 3 1.2 4.7 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3.1.8.8-3-.2-.3c-.9-1.4-1.3-3-1.3-4.6 0-4.5 3.7-8.2 8.2-8.2s8.2 3.7 8.2 8.2-3.7 8.5-8 8.5z"/></svg>
-                </div>
-                <div class="contact-card-body">
-                  <span class="contact-card-label">WhatsApp</span>
-                  <span class="contact-card-value">Direkt schreiben — meist Antwort in &lt; 1h</span>
-                </div>
-                <span class="contact-card-arrow">→</span>
-              </a>
-
-              <a href="mailto:weblabduisburg@gmail.com?subject=Anfrage%20neue%20Website&body=Hallo%2C%20ich%20interessiere%20mich%20f%C3%BCr%20eine%20neue%20Website%20f%C3%BCr%20mein%20Unternehmen.%0D%0A%0D%0ABranche%3A%20%0D%0AStandort%3A%20%0D%0AGew%C3%BCnschtes%20Paket%3A%20" class="contact-card">
-                <div class="contact-card-icon contact-icon-mail">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
-                </div>
-                <div class="contact-card-body">
-                  <span class="contact-card-label">E-Mail</span>
-                  <span class="contact-card-value">weblabduisburg@gmail.com</span>
-                </div>
-                <span class="contact-card-arrow">→</span>
-              </a>
-
-              <div class="contact-card contact-card-static">
-                <div class="contact-card-icon contact-icon-loc">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                </div>
-                <div class="contact-card-body">
-                  <span class="contact-card-label">Standort</span>
-                  <span class="contact-card-value">Duisburg · Termin in der ganzen Region möglich</span>
-                </div>
+          <form class="contact-form" id="contact-form" onsubmit="return submitContact(event)">
+            <div class="cf-row">
+              <div class="cf-field">
+                <label>Ihr Name</label>
+                <input type="text" name="name" required>
               </div>
-
+              <div class="cf-field">
+                <label>Firma / Branche</label>
+                <input type="text" name="firma" placeholder="z.B. Friseur Mauro">
+              </div>
             </div>
-          </div>
-
-          <div class="contact-form-wrap">
-            <form class="contact-form" id="contact-form" novalidate>
-              <h3>Schreib uns kurz, was du brauchst</h3>
-              <div class="form-row">
-                <label>
-                  <span>Dein Name *</span>
-                  <input type="text" name="name" required placeholder="z.B. Max Mustermann" />
-                </label>
-                <label>
-                  <span>Telefon oder E-Mail *</span>
-                  <input type="text" name="contact" required placeholder="So erreichen wir dich" />
-                </label>
+            <div class="cf-row">
+              <div class="cf-field">
+                <label>E-Mail</label>
+                <input type="email" name="email" required>
               </div>
-              <label class="form-full">
-                <span>Branche / Unternehmen</span>
-                <input type="text" name="branche" placeholder="z.B. Friseursalon in Buchholz" />
-              </label>
-              <label class="form-full">
-                <span>Welches Paket interessiert dich?</span>
-                <select name="paket">
-                  <option value="">Bitte wählen</option>
-                  <option>Starter Website (ab 490 €)</option>
-                  <option>Anfrage Website (ab 890 €)</option>
-                  <option>Business Website Plus (ab 1.490 €)</option>
-                  <option>Bin mir noch nicht sicher</option>
-                </select>
-              </label>
-              <label class="form-full">
-                <span>Worum geht's? *</span>
-                <textarea name="message" rows="4" required placeholder="Erzähl uns kurz von deinem Vorhaben…"></textarea>
-              </label>
-              <button type="submit" class="btn btn-primary btn-lg form-submit">
-                Anfrage senden
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-              </button>
-              <p class="form-hint">Wir melden uns innerhalb von 24 Stunden. Alle Angaben bleiben vertraulich.</p>
-              <div class="form-success" id="form-success">
-                Danke! Deine Anfrage ist raus. Wir melden uns innerhalb von 24 Stunden.
+              <div class="cf-field">
+                <label>Telefon (optional)</label>
+                <input type="tel" name="telefon">
               </div>
-            </form>
-          </div>
-
+            </div>
+            <div class="cf-field">
+              <label>Was brauchen Sie?</label>
+              <textarea name="nachricht" rows="4" placeholder="Kurz beschreiben, was Sie suchen — Paket, Wünsche, was Sie schon haben…" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-cream btn-lg">Anfrage senden →</button>
+            <p class="cf-note">Mit dem Absenden willigen Sie ein, dass Tim Ihnen kurz antwortet. Keine Newsletter, kein Weiterverkauf.</p>
+          </form>
         </div>
       </div>
     </section>
 
   </main>
 
-  <!-- ─── FOOTER ─── -->
-  <footer class="site-footer">
+  <!-- ─── Footer ─── -->
+  <footer class="footer">
     <div class="container footer-inner">
       <div class="footer-brand">
-        <div class="brand">
-          <span class="brand-mark">
-            <svg width="24" height="24" viewBox="0 0 28 28" fill="none" aria-hidden="true">
-              <rect x="2" y="2" width="24" height="24" rx="6" fill="#1e40af"/>
-              <path d="M8 10 L14 16 L20 10" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-              <path d="M8 17 L14 22 L20 17" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.55"/>
-            </svg>
-          </span>
-          <span class="brand-text">
-            <span class="brand-name" style="color:#fff">WebStudio <span class="brand-accent">Duisburg</span></span>
-            <span class="brand-sub" style="color:rgba(255,255,255,0.5)">Webdesign aus Duisburg &amp; Umgebung</span>
-          </span>
+        <span class="brand-mark">TU</span>
+        <div>
+          <div class="footer-brand-name">Tim-Ulrich-Webstudio</div>
+          <div class="footer-brand-sub">Webdesign aus Duisburg — handgemacht.</div>
         </div>
-        <p class="footer-tagline">Moderne Websites für lokale Unternehmen — fair, persönlich, schnell.</p>
       </div>
 
       <div class="footer-cols">
-        <div class="footer-col">
+        <div>
           <h4>Pakete</h4>
-          <a href="#leistungen">Starter Website</a>
-          <a href="#leistungen">Anfrage Website</a>
-          <a href="#leistungen">Business Website Plus</a>
+          <a href="#leistungen">Starter</a>
+          <a href="#leistungen">Anfrage-Website</a>
+          <a href="#leistungen">Business + KI</a>
         </div>
-        <div class="footer-col">
+        <div>
           <h4>Mehr</h4>
-          <a href="#vorteile">Vorteile</a>
           <a href="#ablauf">Ablauf</a>
+          <a href="#ueber">Über mich</a>
           <a href="#faq">FAQ</a>
         </div>
-        <div class="footer-col">
+        <div>
           <h4>Kontakt</h4>
           <a href="mailto:weblabduisburg@gmail.com">weblabduisburg@gmail.com</a>
-          <a href="https://wa.me/4915123456789" target="_blank" rel="noopener">WhatsApp Chat</a>
-          <span>Duisburg &amp; Umgebung</span>
+          <a href="tel:+4920312345678">+49 203 12 34 56 78</a>
         </div>
       </div>
     </div>
     <div class="footer-bottom">
-      <div class="container footer-bottom-inner">
-        <span>© <span id="year">2026</span> WebStudio Duisburg. Alle Rechte vorbehalten.</span>
+      <div class="container">
+        <span>© <span id="year">2026</span> Tim-Ulrich-Webstudio · Duisburg</span>
         <span class="footer-legal">
-          <a href="#impressum">Impressum</a>
-          <a href="#datenschutz">Datenschutz</a>
+          <a href="#">Impressum</a> · <a href="#">Datenschutz</a>
         </span>
       </div>
     </div>
   </footer>
-
-  <!-- ─── Floating WhatsApp button (conversion booster) ─── -->
-  <a href="https://wa.me/4915123456789?text=Hallo%20WebStudio%20Duisburg%2C%20ich%20m%C3%B6chte%20mehr%20%C3%BCber%20eure%20Pakete%20erfahren." class="float-whatsapp" target="_blank" rel="noopener" aria-label="Chat per WhatsApp starten">
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-1.7-.8-2.8-1.5-3.9-3.4-.3-.5.3-.5.8-1.5.1-.2.1-.3 0-.5s-.7-1.7-1-2.3c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 2.9 0 1.7 1.2 3.4 1.4 3.6.2.2 2.4 3.6 5.7 5 2.1.9 2.9 1 3.9.8.6-.1 1.7-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.5-.1zM12 2C6.5 2 2 6.5 2 12c0 1.7.4 3.4 1.3 4.9L2 22l5.3-1.4c1.4.8 3 1.2 4.7 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3.1.8.8-3-.2-.3c-.9-1.4-1.3-3-1.3-4.6 0-4.5 3.7-8.2 8.2-8.2s8.2 3.7 8.2 8.2-3.7 8.5-8 8.5z"/></svg>
-    <span class="float-whatsapp-label">Chat starten</span>
-  </a>
 
   <script src="app.js"></script>
 </body>
