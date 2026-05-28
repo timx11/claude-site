@@ -1,0 +1,164 @@
+/* wishes.css — mobil-zuerst, freundliche Optik für Kunden-Eingabe */
+
+.wf-page {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 24px 16px 120px;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* Header */
+.wf-header { margin-bottom: 22px; }
+.wf-brand { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.wf-brand-mark {
+  width: 42px; height: 42px; border-radius: 10px;
+  background: linear-gradient(135deg, #0f1f3d, #1e40af);
+  color: #fff; font-weight: 800; font-size: 20px;
+  display: grid; place-items: center;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+.wf-brand-name {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 18px; font-weight: 800; color: #0f1f3d;
+  line-height: 1.1;
+}
+.wf-brand-sub { font-size: 12px; color: #6b7280; }
+
+.wf-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 28px; font-weight: 800; color: #0f1f3d;
+  margin: 0 0 8px; line-height: 1.2;
+}
+.wf-sub { font-size: 15px; color: #4b5563; margin: 0; line-height: 1.5; }
+
+/* Karten */
+.wf-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 22px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 10px rgba(15, 31, 61, 0.05);
+  border: 1px solid #eef0f5;
+  position: relative;
+}
+.wf-step {
+  position: absolute; top: -10px; left: 20px;
+  background: #1e40af; color: #fff;
+  width: 28px; height: 28px; border-radius: 50%;
+  font-weight: 700; font-size: 14px;
+  display: grid; place-items: center;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+.wf-h2 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 18px; font-weight: 700;
+  color: #0f1f3d; margin: 0 0 4px;
+}
+.wf-h2-sub { font-size: 13px; color: #6b7280; margin: 0 0 16px; }
+
+/* Chip-Auswahl (Stil) */
+.wf-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.wf-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 10px 16px;
+  border: 1.5px solid #e3e7ef; border-radius: 99px;
+  background: #fff; color: #0f1f3d;
+  font-size: 15px; font-weight: 500; cursor: pointer;
+  transition: all 0.15s;
+  user-select: none;
+}
+.wf-chip:hover { border-color: #93c5fd; }
+.wf-chip.on {
+  background: #1e40af; color: #fff; border-color: #1e40af;
+}
+
+/* Grid für Services & Bots */
+.wf-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 10px;
+}
+.wf-tile {
+  border: 1.5px solid #e3e7ef;
+  border-radius: 12px;
+  padding: 14px;
+  background: #fff;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  transition: all 0.15s;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.wf-tile:hover { border-color: #93c5fd; }
+.wf-tile.on {
+  background: #f0f7ff;
+  border-color: #1e40af;
+  box-shadow: 0 0 0 2px rgba(30, 64, 175, 0.15);
+}
+.wf-tile .ic { font-size: 22px; margin-bottom: 4px; }
+.wf-tile .ti { font-size: 14px; font-weight: 700; color: #0f1f3d; line-height: 1.2; }
+.wf-tile .desc { font-size: 12px; color: #6b7280; line-height: 1.35; }
+.wf-tile.on .desc { color: #4b5563; }
+
+/* Inputs */
+.wf-label {
+  display: block; font-size: 12px; font-weight: 600;
+  color: #6b7280; text-transform: uppercase; letter-spacing: 0.04em;
+  margin-bottom: 6px;
+}
+.wf-input, .wf-textarea {
+  width: 100%; padding: 12px 14px;
+  border: 1.5px solid #e3e7ef; border-radius: 10px;
+  font: inherit; font-size: 15px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  background: #fff;
+}
+.wf-input:focus, .wf-textarea:focus {
+  outline: none; border-color: #1e40af;
+  box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.12);
+}
+.wf-textarea { min-height: 110px; resize: vertical; }
+.wf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 480px) { .wf-row { grid-template-columns: 1fr; } }
+
+/* CTA */
+.wf-cta-bar {
+  position: sticky; bottom: 16px;
+  margin-top: 18px;
+  text-align: center;
+  z-index: 10;
+}
+.wf-cta {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  background: #1e40af; color: #fff;
+  font-family: inherit; font-size: 16px; font-weight: 700;
+  padding: 16px 32px; border-radius: 99px; border: 0;
+  cursor: pointer;
+  box-shadow: 0 8px 30px rgba(30, 64, 175, 0.3);
+  text-decoration: none;
+  transition: transform 0.1s;
+}
+.wf-cta:hover { transform: translateY(-1px); }
+.wf-cta:active { transform: translateY(0); }
+.wf-cta-hint { font-size: 11px; color: #6b7280; margin: 8px 0 0; }
+
+/* Erfolgs-Modal */
+.wf-success {
+  text-align: center;
+  padding: 60px 24px;
+}
+.wf-success-icon {
+  width: 84px; height: 84px; margin: 0 auto 18px;
+  background: #16a34a; color: #fff;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  font-size: 44px; font-weight: 800;
+}
+.wf-success h2 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 26px; margin: 0 0 8px; color: #0f1f3d;
+}
+.wf-success p { font-size: 15px; color: #4b5563; margin: 0 0 20px; }
+
+/* Admin-only-Bar verbergen, wenn ?customer=1 */
+body.wf-customer-mode .wf-admin-only { display: none !important; }

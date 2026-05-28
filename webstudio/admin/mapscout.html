@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Map-Scout — WebStudio Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" />
+  <link rel="stylesheet" href="admin-shared.css" />
+</head>
+<body>
+
+<div id="ad-topnav-mount"></div>
+
+<main class="ad-page">
+
+  <div class="ad-page-header">
+    <div>
+      <h1 class="ad-page-title">Map-Scout</h1>
+      <p class="ad-page-sub">Screenshot aus Google Maps reinziehen → KI liest Firma, Website, Telefon → Website wird auditiert</p>
+    </div>
+    <div class="ad-page-actions">
+      <a href="cockpit.html" class="ad-btn">← zum Cockpit</a>
+    </div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 22px;">
+    <!-- linke Spalte: Screenshot + Daten -->
+    <div>
+      <div class="ad-card">
+        <div class="ad-card-h">
+          <h2>1. Google-Maps-Screenshot</h2>
+          <span class="ad-card-sub">PNG/JPG · drag&drop oder einfügen (Strg+V)</span>
+        </div>
+        <div class="ad-card-pad">
+          <div id="dropzone" class="ad-dropzone">
+            <div class="ad-dropzone-icon">📍</div>
+            <h3>Screenshot hier ablegen</h3>
+            <p>Oder klicken um Datei zu wählen · Strg+V zum Einfügen</p>
+            <input type="file" id="file-input" accept="image/*" style="display:none">
+          </div>
+          <div style="display:flex; justify-content:flex-end; margin-top: 12px;">
+            <button id="btn-extract" class="ad-btn ad-btn-accent" disabled>🔍 Mit KI auslesen</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="ad-card" style="margin-top: 18px;">
+        <div class="ad-card-h">
+          <h2>2. Geschäftsdaten</h2>
+          <span class="ad-card-sub">KI füllt vor — Du kannst überall korrigieren</span>
+        </div>
+        <div class="ad-card-pad">
+          <div class="ad-row">
+            <div>
+              <label class="ad-label">Firma</label>
+              <input type="text" id="f-firma" class="ad-input">
+            </div>
+            <div>
+              <label class="ad-label">Branche</label>
+              <input type="text" id="f-branche" class="ad-input">
+            </div>
+          </div>
+          <div class="ad-row" style="margin-top: 10px;">
+            <div>
+              <label class="ad-label">Adresse</label>
+              <input type="text" id="f-adresse" class="ad-input">
+            </div>
+            <div>
+              <label class="ad-label">PLZ · Stadt</label>
+              <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 8px;">
+                <input type="text" id="f-plz" class="ad-input">
+                <input type="text" id="f-stadt" class="ad-input">
+              </div>
+            </div>
+          </div>
+          <div class="ad-row" style="margin-top: 10px;">
+            <div>
+              <label class="ad-label">Telefon</label>
+              <input type="text" id="f-telefon" class="ad-input">
+            </div>
+            <div>
+              <label class="ad-label">E-Mail</label>
+              <input type="text" id="f-email" class="ad-input">
+            </div>
+          </div>
+          <div style="margin-top: 10px;">
+            <label class="ad-label">Website</label>
+            <input type="text" id="f-website" class="ad-input" placeholder="https://…">
+          </div>
+          <div class="ad-row" style="margin-top: 10px;">
+            <div>
+              <label class="ad-label">Google-Bewertung</label>
+              <input type="text" id="f-rating" class="ad-input" placeholder="4,7">
+            </div>
+            <div>
+              <label class="ad-label">Anzahl Bewertungen</label>
+              <input type="text" id="f-reviews" class="ad-input" placeholder="312">
+            </div>
+          </div>
+          <div style="margin-top: 14px;">
+            <label class="ad-label">Notizen</label>
+            <textarea id="f-notizen" class="ad-textarea" placeholder="Erster Eindruck, Ansprechpartner, Hinweise…"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- rechte Spalte: Audit -->
+    <div>
+      <div class="ad-card">
+        <div class="ad-card-h">
+          <h2>3. Website-Audit</h2>
+          <span class="ad-card-sub">KI liest die Site & gibt Verkaufsbefunde</span>
+        </div>
+        <div class="ad-card-pad">
+          <p style="font-size: 13px; color: var(--ad-text-muted); margin: 0 0 12px;">
+            Wir versuchen den HTML-Inhalt der Kunden-Website automatisch zu laden (über einen öffentlichen Read-Proxy).
+            Klappt das nicht, kannst Du den Inhalt unten manuell einfügen — oder das Audit trotzdem laufen lassen.
+          </p>
+
+          <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+            <button id="btn-fetch" class="ad-btn ad-btn-sm">⬇️ Website-Inhalt laden</button>
+            <button id="btn-audit" class="ad-btn ad-btn-accent ad-btn-sm" disabled>🤖 Audit starten</button>
+          </div>
+
+          <details>
+            <summary style="cursor: pointer; font-size: 13px; color: var(--ad-text-muted); margin-bottom: 6px;">Manuellen Inhalt einfügen (optional)</summary>
+            <textarea id="f-manual-html" class="ad-textarea" placeholder="HTML oder Klartext der Website einfügen…" style="margin-top: 8px; min-height: 140px; font-family: ui-monospace, monospace; font-size: 12px;"></textarea>
+          </details>
+
+          <div id="audit-status" style="margin-top: 12px; font-size: 13px; color: var(--ad-text-muted);"></div>
+        </div>
+      </div>
+
+      <div class="ad-card" id="audit-result" style="margin-top: 18px; display: none;">
+        <div class="ad-card-h">
+          <h2>Befunde</h2>
+          <span class="ad-card-sub" id="audit-meta"></span>
+        </div>
+        <div class="ad-card-pad" id="audit-body"></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="position: sticky; bottom: 16px; margin-top: 24px; display: flex; justify-content: center;">
+    <div class="ad-card ad-card-pad" style="display: flex; gap: 10px; align-items: center; box-shadow: var(--ad-shadow-lg);">
+      <span style="font-size: 14px; color: var(--ad-text-muted);">
+        <span id="save-state">Noch nicht gespeichert</span>
+      </span>
+      <button id="btn-save" class="ad-btn ad-btn-primary">💾 Lead speichern</button>
+      <a id="link-pitch" class="ad-btn" href="#" style="display:none;">📄 Pitch-Sheet öffnen →</a>
+    </div>
+  </div>
+
+</main>
+
+<script src="admin-shared.js"></script>
+<script src="mapscout.js"></script>
+</body>
+</html>

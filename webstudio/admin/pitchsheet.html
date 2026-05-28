@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Pitch-Sheet — WebStudio Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" />
+  <link rel="stylesheet" href="admin-shared.css" />
+  <link rel="stylesheet" href="pitchsheet.css" />
+</head>
+<body>
+
+<div id="ad-topnav-mount" class="no-print"></div>
+
+<main class="ad-page no-print">
+  <div class="ad-page-header">
+    <div>
+      <h1 class="ad-page-title">Pitch-Sheet</h1>
+      <p class="ad-page-sub">Druckbares A4-Blatt für den Vor-Ort-Termin — mit QR-Code für das Wunschformular</p>
+    </div>
+    <div class="ad-page-actions">
+      <select id="lead-picker" class="ad-select" style="min-width: 260px;"></select>
+      <button class="ad-btn ad-btn-primary" onclick="window.print()">🖨️ Drucken</button>
+      <a href="cockpit.html" class="ad-btn">← Cockpit</a>
+    </div>
+  </div>
+
+  <div class="sheet-meta-controls ad-card ad-card-pad" style="margin-bottom: 14px;">
+    <div class="ad-row">
+      <div>
+        <label class="ad-label">Erstellt am (Anzeige)</label>
+        <input type="text" id="m-date" class="ad-input">
+      </div>
+      <div>
+        <label class="ad-label">Geplante Investition (Anzeige)</label>
+        <input type="text" id="m-invest" class="ad-input" placeholder="z.B. 890 € — 1.490 €">
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- ─── Das eigentliche Druckblatt ─── -->
+<div class="sheet-wrap" id="sheet-wrap">
+  <article class="sheet" id="sheet">
+    <!-- gefüllt durch JS -->
+  </article>
+</div>
+
+<script src="admin-shared.js"></script>
+<script src="pitchsheet.js"></script>
+</body>
+</html>

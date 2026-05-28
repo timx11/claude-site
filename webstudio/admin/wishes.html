@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Ihre Wünsche — WebStudio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" />
+  <link rel="stylesheet" href="admin-shared.css" />
+  <link rel="stylesheet" href="wishes.css" />
+</head>
+<body>
+
+<!-- Top-Nav nur sichtbar wenn nicht "Kunden-Modus" -->
+<div id="ad-topnav-mount" class="wf-admin-only"></div>
+
+<main class="wf-page">
+
+  <header class="wf-header">
+    <div class="wf-brand">
+      <div class="wf-brand-mark">W</div>
+      <div>
+        <div class="wf-brand-name" id="brand-name">WebStudio</div>
+        <div class="wf-brand-sub">Ihr Wunschformular</div>
+      </div>
+    </div>
+    <h1 class="wf-title" id="wf-title">Wie soll Ihre neue Website werden?</h1>
+    <p class="wf-sub" id="wf-sub">
+      Klicken Sie einfach das an, was passt — alles ist Mehrfachauswahl. Das hilft uns,
+      genau das zu bauen, was Sie wirklich wollen.
+    </p>
+  </header>
+
+  <!-- 1. Stil-Auswahl -->
+  <section class="wf-card">
+    <div class="wf-step">1</div>
+    <h2 class="wf-h2">Wie soll die Website wirken?</h2>
+    <p class="wf-h2-sub">Mehrfachauswahl. Auch Gegensätze sind erlaubt — wir machen daraus etwas Stimmiges.</p>
+    <div class="wf-chips" id="style-chips"></div>
+  </section>
+
+  <!-- 2. Funktionen -->
+  <section class="wf-card">
+    <div class="wf-step">2</div>
+    <h2 class="wf-h2">Was soll Ihre Website können?</h2>
+    <p class="wf-h2-sub">Funktionen, die für Ihre Branche sinnvoll sind.</p>
+    <div class="wf-grid" id="service-grid"></div>
+  </section>
+
+  <!-- 3. KI-Bots -->
+  <section class="wf-card">
+    <div class="wf-step">3</div>
+    <h2 class="wf-h2">KI-Bots — soll einer mitarbeiten?</h2>
+    <p class="wf-h2-sub">Bots beantworten Anfragen automatisch, 24/7, in Ihrem Tonfall.</p>
+    <div class="wf-grid" id="bot-grid"></div>
+  </section>
+
+  <!-- 4. Freitext -->
+  <section class="wf-card">
+    <div class="wf-step">4</div>
+    <h2 class="wf-h2">Sonst noch was wichtig?</h2>
+    <p class="wf-h2-sub">Beispiele, Vorbilder, Branding-Wünsche, No-Gos…</p>
+    <textarea id="freetext" class="wf-textarea" placeholder="Z.B. 'Soll wirken wie [andere Website]', 'Logo bitte in Blau/Gold', 'auf keinen Fall pinke Buttons'…"></textarea>
+  </section>
+
+  <!-- 5. Kontakt-Bestätigung -->
+  <section class="wf-card">
+    <div class="wf-step">5</div>
+    <h2 class="wf-h2">Kontakt für Rückfragen</h2>
+    <p class="wf-h2-sub">Damit wir Sie nach dem Termin erreichen, falls etwas unklar wird.</p>
+    <div class="wf-row">
+      <div>
+        <label class="wf-label">Ansprechpartner/in</label>
+        <input type="text" id="contact-name" class="wf-input">
+      </div>
+      <div>
+        <label class="wf-label">Telefon</label>
+        <input type="tel" id="contact-phone" class="wf-input">
+      </div>
+    </div>
+    <div style="margin-top: 12px;">
+      <label class="wf-label">E-Mail</label>
+      <input type="email" id="contact-email" class="wf-input">
+    </div>
+  </section>
+
+  <div class="wf-cta-bar">
+    <button class="wf-cta" id="btn-submit">✓ Wünsche an WebStudio senden</button>
+    <p class="wf-cta-hint">Wird lokal auf dem Laptop gespeichert · nichts wird ins Internet hochgeladen</p>
+  </div>
+
+  <!-- Erfolgsmeldung -->
+  <div class="wf-success" id="success" style="display:none;">
+    <div class="wf-success-icon">✓</div>
+    <h2>Vielen Dank!</h2>
+    <p id="success-text">Ihre Wünsche sind bei uns angekommen. Wir bauen los.</p>
+    <a href="#" class="wf-cta" id="success-cta" style="display:none;">Cockpit öffnen →</a>
+  </div>
+
+</main>
+
+<script src="admin-shared.js"></script>
+<script src="wishes.js"></script>
+</body>
+</html>
