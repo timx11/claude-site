@@ -1066,51 +1066,83 @@ class Studio3D {
     }
   }
 
-  /* ── Cleaner Red-Glow-Stick (statt der filigranen Lampe) ── */
+  /* ── Designer Orb-Lampe (substanziell, premium) ────────── */
   buildDeskLamp() {
     const lamp = new THREE.Group();
 
-    // Position: links hinten am Tisch, hinter dem Speaker
+    // Position: links hinten am Tisch
     const baseX = -2.0;
     const baseY = 1.04;
     const baseZ = -0.2;
-    const red = 0xff2a3a;
+    const red = 0xff3848;
+    const redHot = 0xffb0a8;
 
-    // 1. Fußplatte — schwarze Disc, sitzt sauber auf dem Tisch
+    // 1. Fußplatte — niedrige schwarze Disc mit Bevel-Look
     const base = new THREE.Mesh(
-      new THREE.CylinderGeometry(0.075, 0.085, 0.025, 32),
-      new THREE.MeshStandardMaterial({ color: 0x06060c, roughness: 0.3, metalness: 0.8 })
+      new THREE.CylinderGeometry(0.09, 0.1, 0.022, 40),
+      new THREE.MeshStandardMaterial({ color: 0x0a0a14, roughness: 0.22, metalness: 0.92 })
     );
-    base.position.set(baseX, baseY + 0.012, baseZ);
+    base.position.set(baseX, baseY + 0.011, baseZ);
     base.castShadow = true;
     lamp.add(base);
 
-    // 2. Glow-Säule — schlanker leuchtender Zylinder, dominiert die Form
-    const tubeH = 0.46;
-    const tube = new THREE.Mesh(
-      new THREE.CylinderGeometry(0.022, 0.022, tubeH, 28),
+    // 2. Stem — schlanker schwarzer Hochglanz-Stand
+    const stemH = 0.32;
+    const stem = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.013, 0.013, stemH, 20),
+      new THREE.MeshStandardMaterial({ color: 0x06060c, roughness: 0.28, metalness: 0.88 })
+    );
+    stem.position.set(baseX, baseY + 0.022 + stemH / 2, baseZ);
+    stem.castShadow = true;
+    lamp.add(stem);
+
+    // 3. Gelenk — dezenter Übergang Stem ↔ Orb
+    const joint = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.024, 0.024, 0.016, 24),
+      new THREE.MeshStandardMaterial({ color: 0x0a0a14, roughness: 0.3, metalness: 0.85 })
+    );
+    joint.position.set(baseX, baseY + 0.022 + stemH + 0.008, baseZ);
+    lamp.add(joint);
+
+    // 4. Glow-Orb — substanzielle leuchtende Kugel (8 cm Radius)
+    const orbY = baseY + 0.022 + stemH + 0.016 + 0.08;
+    const orb = new THREE.Mesh(
+      new THREE.SphereGeometry(0.08, 36, 28),
       new THREE.MeshBasicMaterial({ color: red })
     );
-    tube.position.set(baseX, baseY + 0.025 + tubeH / 2, baseZ);
-    lamp.add(tube);
+    orb.position.set(baseX, orbY, baseZ);
+    lamp.add(orb);
 
-    // 3. Top-Cap — kleine schwarze Disc oben, sauberes Finish
-    const cap = new THREE.Mesh(
-      new THREE.CylinderGeometry(0.026, 0.026, 0.012, 24),
-      new THREE.MeshStandardMaterial({ color: 0x0a0a14, roughness: 0.3, metalness: 0.8 })
+    // 5. Hot-Core innen — kleinere hellere Kugel für "Glühfaden"-Effekt
+    const orbCore = new THREE.Mesh(
+      new THREE.SphereGeometry(0.05, 28, 20),
+      new THREE.MeshBasicMaterial({ color: redHot })
     );
-    cap.position.set(baseX, baseY + 0.025 + tubeH + 0.006, baseZ);
-    lamp.add(cap);
+    orbCore.position.set(baseX, orbY, baseZ);
+    lamp.add(orbCore);
 
-    // 4. Rotes Punktlicht — strahlt vom Mittelpunkt der Säule aus
-    const glow = new THREE.PointLight(red, 1.8, 2.4, 1.6);
-    glow.position.set(baseX, baseY + 0.025 + tubeH / 2, baseZ);
+    // 6. Halo um die Orb (zarter Bloom-Effekt als gerenderte Sphere)
+    const halo = new THREE.Mesh(
+      new THREE.SphereGeometry(0.11, 24, 18),
+      new THREE.MeshBasicMaterial({
+        color: red,
+        transparent: true,
+        opacity: 0.18,
+        depthWrite: false,
+      })
+    );
+    halo.position.set(baseX, orbY, baseZ);
+    lamp.add(halo);
+
+    // 7. Hauptlichtquelle — starkes rotes Punktlicht aus der Orb
+    const glow = new THREE.PointLight(red, 3.2, 3.0, 1.6);
+    glow.position.set(baseX, orbY, baseZ);
     lamp.add(glow);
 
-    // 5. Roter Licht-Pool auf dem Tisch direkt um den Fuß (Reflexion)
+    // 8. Roter Reflex-Pool auf dem Tisch
     const pool = new THREE.Mesh(
-      new THREE.CircleGeometry(0.26, 32),
-      new THREE.MeshBasicMaterial({ color: red, transparent: true, opacity: 0.15 })
+      new THREE.CircleGeometry(0.36, 40),
+      new THREE.MeshBasicMaterial({ color: red, transparent: true, opacity: 0.16 })
     );
     pool.rotation.x = -Math.PI / 2;
     pool.position.set(baseX, baseY + 0.046, baseZ);
@@ -1121,104 +1153,104 @@ class Studio3D {
     this.deskLampBulb = glow;
   }
 
-  /* ── WAND-DESIGN: cleaner, mit Lücken ─────────────────── */
+  /* ── WAND v3: ein zusammenhängendes Konzept ──────────── */
   buildWallArt() {
-    // ── 2 dezente vertikale LED-Bars (weit außen, klare Lücke
-    //    zu Regal und Monitor) ────────────────────────────────
-    const tallBars = [
-      { x: -4.0, color: 0xb060ff },
-      { x:  4.0, color: 0xb060ff },
+    // ── Großer weicher Backdrop-Glow hinter dem Monitor ──
+    // (subtiler Verlauf, sieht aus wie Bias-Wash auf Wand)
+    const bgCanvas = document.createElement('canvas');
+    bgCanvas.width = 700; bgCanvas.height = 500;
+    const bgCtx = bgCanvas.getContext('2d');
+    const grd = bgCtx.createRadialGradient(350, 250, 40, 350, 250, 380);
+    grd.addColorStop(0,    'rgba(168, 80, 220, 0.55)');
+    grd.addColorStop(0.45, 'rgba(120, 50, 180, 0.32)');
+    grd.addColorStop(0.85, 'rgba(40, 20, 80, 0.08)');
+    grd.addColorStop(1,    'rgba(20, 10, 30, 0)');
+    bgCtx.fillStyle = grd;
+    bgCtx.fillRect(0, 0, 700, 500);
+    const bgTex = new THREE.CanvasTexture(bgCanvas);
+    bgTex.colorSpace = THREE.SRGBColorSpace;
+    const backdrop = new THREE.Mesh(
+      new THREE.PlaneGeometry(5.5, 3.8),
+      new THREE.MeshBasicMaterial({ map: bgTex, transparent: true })
+    );
+    backdrop.position.set(0, 3.4, -2.95);
+    this.scene.add(backdrop);
+
+    // ── Hexagonal-LED-Cluster (Nanoleaf-Style) ──────────────
+    // 4 Hexagone in Honeycomb-Anordnung, rechts oberhalb des
+    // Wandregals (im freien Bereich, gut sichtbar)
+    const hexR = 0.36;
+    const hexY = 4.5;
+    const hexX = 3.0;
+    const dx = hexR * Math.cos(Math.PI / 6) * 1.95;  // horizontal step
+    const dy = hexR * 1.5;
+    const hexCenters = [
+      { x: hexX,        y: hexY,        color: 0xa850ff },  // lila center
+      { x: hexX + dx,   y: hexY - dy/2, color: 0xff3a90 },  // pink right
+      { x: hexX - dx,   y: hexY - dy/2, color: 0x3affe6 },  // cyan left
+      { x: hexX,        y: hexY - dy,   color: 0xff7340 },  // orange bottom
     ];
-    tallBars.forEach(b => {
-      // 3 Segmente mit Lücken — modern "broken strip"-Look
-      const segments = [
-        { yc: 1.6, h: 1.2 },
-        { yc: 3.2, h: 0.8 },
-        { yc: 4.6, h: 1.0 },
-      ];
-      segments.forEach(s => {
-        const bar = new THREE.Mesh(
-          new THREE.PlaneGeometry(0.05, s.h),
-          new THREE.MeshBasicMaterial({ color: b.color })
-        );
-        bar.position.set(b.x, s.yc, -2.96);
-        this.scene.add(bar);
-      });
-      // Ein Sammel-Licht pro Bar
-      const light = new THREE.PointLight(b.color, 1.4, 4.5, 1.6);
-      light.position.set(b.x, 3.0, -2.3);
+    hexCenters.forEach(h => {
+      // Schwarzer Rahmen leicht hinten
+      const frame = new THREE.Mesh(
+        new THREE.CircleGeometry(hexR + 0.02, 6),
+        new THREE.MeshStandardMaterial({ color: 0x06060c, roughness: 0.25, metalness: 0.85 })
+      );
+      frame.position.set(h.x, h.y, -2.95);
+      frame.rotation.z = Math.PI / 6;
+      this.scene.add(frame);
+      // Leuchtende Fläche (volle Opazität für klare Sichtbarkeit)
+      const face = new THREE.Mesh(
+        new THREE.CircleGeometry(hexR, 6),
+        new THREE.MeshBasicMaterial({ color: h.color })
+      );
+      face.position.set(h.x, h.y, -2.94);
+      face.rotation.z = Math.PI / 6;
+      this.scene.add(face);
+      // Inner-Glow innen (hellerer Kern für Tiefe)
+      const inner = new THREE.Mesh(
+        new THREE.CircleGeometry(hexR * 0.55, 6),
+        new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.32 })
+      );
+      inner.position.set(h.x, h.y, -2.938);
+      inner.rotation.z = Math.PI / 6;
+      this.scene.add(inner);
+      // Bloom-Halo außerhalb
+      const bloom = new THREE.Mesh(
+        new THREE.CircleGeometry(hexR + 0.14, 16),
+        new THREE.MeshBasicMaterial({ color: h.color, transparent: true, opacity: 0.18, depthWrite: false })
+      );
+      bloom.position.set(h.x, h.y, -2.935);
+      this.scene.add(bloom);
+      // Lichtquelle dahinter
+      const light = new THREE.PointLight(h.color, 1.2, 3.5, 1.6);
+      light.position.set(h.x, h.y, -2.3);
       this.scene.add(light);
     });
 
-    // ── Backlit "T·U" Logo, eleganter und kleiner ──────────
-    const logoCanvas = document.createElement('canvas');
-    logoCanvas.width = 520; logoCanvas.height = 240;
-    const lg = logoCanvas.getContext('2d');
-    lg.fillStyle = 'rgba(8, 4, 16, 0)'; lg.fillRect(0, 0, 520, 240);
-    // Heller Outer-Glow als Layer-Effekt
-    lg.font = 'bold 110px "Fraunces", serif';
-    lg.fillStyle = '#fff0a8';
-    lg.shadowColor = '#ffb060';
-    lg.shadowBlur = 38;
-    lg.textAlign = 'center';
-    lg.fillText('T·U', 260, 160);
-    // Doppelt für stärkeren Glow
-    lg.shadowBlur = 16;
-    lg.fillText('T·U', 260, 160);
-    const logoTex = new THREE.CanvasTexture(logoCanvas);
-    logoTex.colorSpace = THREE.SRGBColorSpace;
-    const logo = new THREE.Mesh(
-      new THREE.PlaneGeometry(1.1, 0.5),
-      new THREE.MeshBasicMaterial({ map: logoTex, transparent: true })
+    // ── Dezenter horizontaler LED-Streifen oberhalb des Monitors
+    //    (Bias-Light der Wand, kleiner & subtler) ────────────
+    const bias = new THREE.Mesh(
+      new THREE.PlaneGeometry(1.8, 0.04),
+      new THREE.MeshBasicMaterial({ color: 0xa050ff })
     );
-    logo.position.set(0, 4.5, -2.96);
-    this.scene.add(logo);
-    const logoLight = new THREE.PointLight(0xffb060, 0.8, 3.2, 2);
-    logoLight.position.set(0, 4.5, -2.4);
-    this.scene.add(logoLight);
+    bias.position.set(0, 2.95, -2.95);
+    this.scene.add(bias);
+    const biasLight = new THREE.PointLight(0xa050ff, 1.3, 3.5, 1.6);
+    biasLight.position.set(0, 2.85, -2.4);
+    this.scene.add(biasLight);
 
-    // ── 2 dezente Akzent-Panels symmetrisch links/rechts vom Logo
-    //    (mit klarem Abstand zueinander und zum Logo) ────────
-    const panelColor = 0x8848d8;
-    const panels = [
-      { x: -2.1, y: 4.5, w: 0.7, h: 0.5 },
-      { x:  2.1, y: 4.5, w: 0.7, h: 0.5 },
-    ];
-    panels.forEach(p => {
-      const panel = new THREE.Mesh(
-        new THREE.PlaneGeometry(p.w, p.h),
-        new THREE.MeshBasicMaterial({ color: panelColor, transparent: true, opacity: 0.78 })
-      );
-      panel.position.set(p.x, p.y, -2.96);
-      this.scene.add(panel);
-      // Dünner schwarzer Rahmen drumherum
-      const frameMat = new THREE.MeshStandardMaterial({ color: 0x02020a, roughness: 0.35, metalness: 0.75 });
-      [
-        { ox: 0, oy: p.h / 2 + 0.013, w: p.w + 0.026, h: 0.018 },
-        { ox: 0, oy: -p.h / 2 - 0.013, w: p.w + 0.026, h: 0.018 },
-        { ox: -p.w / 2 - 0.013, oy: 0, w: 0.018, h: p.h + 0.018 },
-        { ox:  p.w / 2 + 0.013, oy: 0, w: 0.018, h: p.h + 0.018 },
-      ].forEach(s => {
-        const f = new THREE.Mesh(new THREE.BoxGeometry(s.w, s.h, 0.022), frameMat);
-        f.position.set(p.x + s.ox, p.y + s.oy, -2.948);
-        this.scene.add(f);
-      });
-      const pl = new THREE.PointLight(panelColor, 0.65, 2.6, 1.8);
-      pl.position.set(p.x, p.y, -2.35);
-      this.scene.add(pl);
-    });
-
-    // ── Cyan-LED Strip rechte Seitenwand (horizontal, dezent) ──
+    // ── Cyan-LED Strip rechte Seitenwand (horizontal, hoch) ──
     const sideStrip = new THREE.Mesh(
       new THREE.PlaneGeometry(0.04, 2.4),
       new THREE.MeshBasicMaterial({ color: 0x3affe6 })
     );
     sideStrip.rotation.y = -Math.PI / 2;
     sideStrip.rotation.z = Math.PI / 2;
-    sideStrip.position.set(5.47, 4.5, -0.5);
+    sideStrip.position.set(5.47, 4.7, -0.5);
     this.scene.add(sideStrip);
     const sideLight = new THREE.PointLight(0x3affe6, 0.7, 3.5, 2);
-    sideLight.position.set(4.9, 4.5, -0.5);
+    sideLight.position.set(4.9, 4.7, -0.5);
     this.scene.add(sideLight);
   }
 
