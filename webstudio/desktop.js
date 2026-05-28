@@ -1132,53 +1132,80 @@ class Studio3D {
     joint2.position.set(baseX, j2y, j2z);
     lamp.add(joint2);
 
-    // 6. Lampenkopf (kegelförmiger Schirm, nach unten gerichtet)
-    const headAng = -Math.PI * 0.7;   // stark nach unten
-    const headLen = 0.16;
-    const head = new THREE.Mesh(
-      new THREE.CylinderGeometry(0.06, 0.09, headLen, 24, 1, true),
-      new THREE.MeshStandardMaterial({
-        color: 0x0a0a14, roughness: 0.4, metalness: 0.8,
-        side: THREE.DoubleSide,
+    // 6. Lampenkopf — massiv schwarzer Cone (nicht durchsichtig)
+    const headAng = -Math.PI * 0.7;   // stark nach unten/vorne
+    const headLen = 0.18;
+    const headRadius = 0.095;
+
+    // Cone-Schirm: GESCHLOSSEN (openEnded=false), DoubleSide unnötig
+    const shadeMat = new THREE.MeshStandardMaterial({
+      color: 0x0a0a12,
+      roughness: 0.32,
+      metalness: 0.82,
+    });
+    const shade = new THREE.Mesh(
+      new THREE.ConeGeometry(headRadius, headLen, 32, 1, false),
+      shadeMat
+    );
+    shade.castShadow = true;
+
+    // Group für Kopf-Komponenten, damit alle zusammen rotieren
+    const headGroup = new THREE.Group();
+    // Innerhalb Group: Cone hat Spitze bei y=+headLen/2, Öffnung bei y=-headLen/2
+    // Wir wollen Spitze "hinten/oben" (am Arm), Öffnung "vorne/unten" (Licht raus)
+    // Standard-Orientierung des Cones: Spitze nach oben → wir wollen das umdrehen
+    shade.rotation.x = Math.PI;  // 180° flip: Spitze nun nach unten, Öffnung nach oben
+    // Nach diesem Flip muss die "Öffnung" wieder nach unten zeigen wenn der Arm geneigt ist
+    // → Cone-Spitze nun bei y=-headLen/2 (lokales y), Boden bei y=+headLen/2
+    // Damit "Boden des Cones" = Lampen-Spitze (wo Arm ansetzt)
+    headGroup.add(shade);
+
+    // Subtle warmer "Hot-Spot" am Boden des Schirms (innere Reflexion)
+    // Disc-Geometrie am offenen Ende (in der Cone-Öffnung sichtbar)
+    const innerGlow = new THREE.Mesh(
+      new THREE.CircleGeometry(headRadius * 0.88, 28),
+      new THREE.MeshBasicMaterial({
+        color: 0xffe6b0,
+        transparent: true,
+        opacity: 0.85,
       })
     );
-    // Vom joint2 ausgehend, kürzer Arm der den Kopf hält
-    const headHolderLen = 0.06;
-    const holderEndY = j2y + Math.cos(headAng) * headHolderLen;
-    const holderEndZ = j2z - Math.sin(headAng) * headHolderLen;
-    head.position.set(baseX, holderEndY + Math.cos(headAng) * headLen / 2, holderEndZ - Math.sin(headAng) * headLen / 2);
-    head.rotation.x = headAng;
-    head.castShadow = true;
-    lamp.add(head);
+    innerGlow.position.y = -headLen / 2 + 0.005;  // direkt am offenen Ende (lokal -y)
+    innerGlow.rotation.x = -Math.PI / 2;          // Disc liegt flach
+    headGroup.add(innerGlow);
 
-    // Innenseite des Schirms (leuchtend)
-    const headInner = new THREE.Mesh(
-      new THREE.CylinderGeometry(0.058, 0.088, headLen - 0.005, 24, 1, true),
-      new THREE.MeshBasicMaterial({ color: 0xffe8b8, side: THREE.BackSide })
-    );
-    headInner.position.copy(head.position);
-    headInner.rotation.copy(head.rotation);
-    lamp.add(headInner);
-
-    // 7. Glühbirne (kleine emissive Kugel im Kopf, sichtbar von unten)
-    const bulbY = holderEndY + Math.cos(headAng) * headLen * 0.6;
-    const bulbZ = holderEndZ - Math.sin(headAng) * headLen * 0.6;
+    // Glühbirne — kleine SICHTBARE Kugel UNTER dem Schirm
     const bulb = new THREE.Mesh(
-      new THREE.SphereGeometry(0.038, 20, 16),
+      new THREE.SphereGeometry(0.04, 20, 16),
       new THREE.MeshBasicMaterial({ color: 0xfff0c8 })
     );
-    bulb.position.set(baseX, bulbY, bulbZ);
-    lamp.add(bulb);
+    bulb.position.y = -headLen / 2 - 0.04;  // hängt unten raus
+    headGroup.add(bulb);
 
-    // 8. Die ECHTE Lichtquelle (warmer Spot nach unten/vorne auf den Tisch)
-    const lampLight = new THREE.SpotLight(0xffd896, 4.2, 2.6, Math.PI * 0.42, 0.55, 1.3);
-    // Position leicht UNTER der Bulb, damit Spot von dort startet
-    const lightY = bulbY + Math.cos(headAng) * 0.08;
-    const lightZ = bulbZ - Math.sin(headAng) * 0.08;
-    lampLight.position.set(baseX, lightY, lightZ);
-    // Ziel: auf dem Tisch vor der Lampe (Richtung Mitte / Keyboard)
+    // Positionierung der ganzen Gruppe am Ende des Diagonal-Arms
+    const headHolderLen = 0.04;
+    const holderEndY = j2y + Math.cos(headAng) * headHolderLen;
+    const holderEndZ = j2z - Math.sin(headAng) * headHolderLen;
+    // Lampenkopf-Center liegt headLen/2 vom Aufhänger entfernt entlang headAng
+    headGroup.position.set(
+      baseX,
+      holderEndY + Math.cos(headAng) * headLen / 2,
+      holderEndZ - Math.sin(headAng) * headLen / 2
+    );
+    headGroup.rotation.x = headAng;
+    lamp.add(headGroup);
+
+    // Bulb-Welt-Position (für SpotLight & PointLight)
+    const bulbWorld = new THREE.Vector3();
+    bulbWorld.set(0, -headLen / 2 - 0.04, 0).applyEuler(new THREE.Euler(headAng, 0, 0));
+    bulbWorld.add(headGroup.position);
+    const bulbX = bulbWorld.x, bulbY = bulbWorld.y, bulbZ = bulbWorld.z;
+
+    // 8. Echte Lichtquelle (warmer Spot Richtung Tisch-Mitte)
+    const lampLight = new THREE.SpotLight(0xffd896, 5.0, 2.8, Math.PI * 0.45, 0.55, 1.3);
+    lampLight.position.set(bulbX, bulbY, bulbZ);
     const lampTarget = new THREE.Object3D();
-    lampTarget.position.set(baseX + 0.6, baseY + 0.05, baseZ + 0.55);
+    lampTarget.position.set(baseX + 0.7, baseY + 0.05, baseZ + 0.6);
     lamp.add(lampTarget);
     lampLight.target = lampTarget;
     lampLight.castShadow = true;
@@ -1186,9 +1213,9 @@ class Studio3D {
     lampLight.shadow.bias = -0.0003;
     lamp.add(lampLight);
 
-    // 9. Glow um die Bulb herum (subtle PointLight nach allen Seiten)
-    const bulbGlow = new THREE.PointLight(0xffd896, 1.4, 1.2, 2);
-    bulbGlow.position.set(baseX, bulbY, bulbZ);
+    // 9. Glow um die Bulb (PointLight rundherum)
+    const bulbGlow = new THREE.PointLight(0xffd896, 1.6, 1.4, 2);
+    bulbGlow.position.set(bulbX, bulbY, bulbZ);
     lamp.add(bulbGlow);
 
     // 10. Warmer Licht-Pool auf dem Tisch (Reflexionsandeutung)
