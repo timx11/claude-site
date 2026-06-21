@@ -1,0 +1,18 @@
+# Diese Datei sagt dem Server, wie dein Plugin heißt und welche Befehle es gibt.
+name: MeinServer
+version: '${version}'
+# Der Pfad zur Haupt-Klasse (Paket + Klassenname)
+main: de.meinserver.MeinServerPlugin
+# Für welche Minecraft-Version das Plugin gedacht ist
+api-version: '1.21'
+description: Mein erster eigener Minecraft-Server
+authors: [DeinName]
+
+# Hier werden alle Befehle (Commands) angemeldet
+commands:
+  hallo:
+    description: Begrüßt den Spieler
+    usage: /hallo
+  heile:
+    description: Heilt dich vollständig
+    usage: /heile

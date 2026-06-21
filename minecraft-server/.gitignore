@@ -1,0 +1,11 @@
+# Gradle-Build-Ausgaben
+.gradle/
+build/
+
+# Test-Server-Ordner (wird von ./gradlew runServer erzeugt)
+run/
+
+# Editor-/IDE-Dateien
+.idea/
+*.iml
+.vscode/
