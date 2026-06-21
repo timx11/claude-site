@@ -1,7 +1,6 @@
 package de.meinserver;
 
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,13 +18,9 @@ public class SpielerListener implements Listener {
         Player spieler = event.getPlayer();
 
         // Persönliche Nachricht nur an den beitretenden Spieler.
-        spieler.sendMessage(
-                Component.text("Willkommen, " + spieler.getName() + "!", NamedTextColor.AQUA)
-        );
+        spieler.sendMessage(ChatColor.AQUA + "Willkommen, " + spieler.getName() + "!");
 
         // Die Nachricht, die alle anderen Spieler im Chat sehen.
-        event.joinMessage(
-                Component.text(spieler.getName() + " ist dem Server beigetreten.", NamedTextColor.YELLOW)
-        );
+        event.setJoinMessage(ChatColor.YELLOW + spieler.getName() + " ist dem Server beigetreten.");
     }
 }

@@ -1,8 +1,8 @@
-# MeinServer 🟩 — dein erster Minecraft-Server (Java Edition)
+# MeinServer 🟩 — dein erster Minecraft-Server (Java Edition 1.8.8)
 
-Das hier ist ein **Paper-Plugin**. Paper ist eine schnelle, erweiterbare
-Server-Software für Minecraft Java Edition. Statt einen ganzen Server von Null
-zu programmieren, bauen wir auf Paper auf und schreiben die **Spiellogik selbst**
+Das hier ist ein **Spigot-Plugin** für **Minecraft 1.8.8** — die Version, die
+für PvP-Server sehr beliebt ist. Statt einen ganzen Server von Null zu
+programmieren, bauen wir auf Spigot auf und schreiben die **Spiellogik selbst**
 in Java — genau so machen es echte Server.
 
 Dieses Grundgerüst bringt schon mit:
@@ -11,16 +11,20 @@ Dieses Grundgerüst bringt schon mit:
 - `/heile` — füllt Leben und Hunger wieder auf
 - Eine Willkommensnachricht, wenn ein Spieler den Server betritt
 
+> **Wichtig:** Minecraft 1.8.8 ist alt und braucht **Java 8** zum Laufen.
+> Mit neuem Java (17/21) stürzt ein 1.8.8-Server ab.
+
 ---
 
 ## 0. Was du einmalig installieren musst
 
-1. **Java 21 (JDK)** — z. B. von [Adoptium / Temurin](https://adoptium.net/).
+1. **Java 8 (JDK)** — z. B. von [Adoptium / Temurin 8](https://adoptium.net/temurin/releases/?version=8).
+   Wir nutzen Java 8 zum **Bauen** und zum **Server starten**.
    Prüfen im Terminal:
    ```
    java -version
    ```
-   Es sollte `21` erscheinen.
+   Es sollte `1.8` erscheinen.
 2. **Einen Editor** — empfohlen: [IntelliJ IDEA Community](https://www.jetbrains.com/idea/download/)
    (kostenlos, ideal für Java) oder [VS Code](https://code.visualstudio.com/).
 
@@ -29,7 +33,7 @@ Dieses Grundgerüst bringt schon mit:
 
 ---
 
-## 1. Projekt bauen
+## 1. Plugin bauen
 
 Im Ordner `minecraft-server/` im Terminal:
 
@@ -42,7 +46,7 @@ Im Ordner `minecraft-server/` im Terminal:
   ./gradlew build
   ```
 
-Beim ersten Mal lädt Gradle die Paper-API herunter (kurz Geduld). Wenn alles
+Beim ersten Mal lädt Gradle die Spigot-API herunter (kurz Geduld). Wenn alles
 klappt, steht am Ende `BUILD SUCCESSFUL`. Deine fertige Plugin-Datei liegt dann
 hier:
 
@@ -52,39 +56,41 @@ build/libs/MeinServer-1.0.0.jar
 
 ---
 
-## 2. Sofort testen (einfachster Weg) ✅
+## 2. Einen 1.8.8-Server einrichten
 
-Du brauchst **keinen** Server herunterzuladen. Dieser Befehl startet automatisch
-einen Test-Server mit deinem Plugin:
+Anders als bei neueren Versionen gibt es für 1.8.8 keinen
+`./gradlew runServer`-Knopf. Du richtest den Server einmal manuell ein:
 
-- **Windows:** `gradlew.bat runServer`
-- **Mac/Linux:** `./gradlew runServer`
-
-Beim ersten Start musst du im selben Terminal die Minecraft-EULA akzeptieren:
-Tippe `stop` (Enter), öffne die neu erzeugte Datei `run/eula.txt`, ändere
-`eula=false` zu `eula=true`, speichern, und starte `runServer` erneut.
-
-Dann im **Minecraft-Client (Java Edition, Version 1.21.4)**:
-`Mehrspieler → Direkt verbinden → Adresse: localhost → Beitreten`.
-
-Probiere im Spiel `/hallo` und `/heile` aus.
-
-> Server in der Konsole sauber stoppen: `stop` eingeben (nicht das Fenster
-> einfach schließen).
+1. Besorge dir eine **Spigot- oder Paper-Server-Datei für 1.8.8**:
+   - Bequem als fertige Datei z. B. über <https://getbukkit.org/download/spigot>
+     (`spigot-1.8.8.jar`), **oder**
+   - selbst bauen mit dem offiziellen [BuildTools](https://www.spigotmc.org/wiki/buildtools/):
+     ```
+     java -jar BuildTools.jar --rev 1.8.8
+     ```
+2. Lege die Server-Datei in einen leeren Ordner (z. B. `server/`) und starte sie
+   **mit Java 8**:
+   ```
+   java -Xmx2G -jar spigot-1.8.8.jar nogui
+   ```
+3. Der Start bricht beim ersten Mal ab und erzeugt eine Datei `eula.txt`.
+   Öffne sie, ändere `eula=false` zu `eula=true`, speichern.
+4. Starte den Server erneut (gleicher Befehl wie oben). Jetzt läuft er.
 
 ---
 
-## 3. Auf einem "echten" Server benutzen
+## 3. Dein Plugin einbauen und testen
 
-1. Lade Paper für 1.21.4 von <https://papermc.io/downloads> herunter
-   (`paper-1.21.4-XXX.jar`).
-2. Lege es in einen leeren Ordner und starte es einmal, z. B.:
-   ```
-   java -Xmx2G -jar paper-1.21.4-XXX.jar nogui
-   ```
-3. EULA akzeptieren (siehe oben, `eula.txt`).
-4. Kopiere deine `build/libs/MeinServer-1.0.0.jar` in den Unterordner `plugins/`.
-5. Server neu starten — dein Plugin lädt automatisch.
+1. Kopiere deine `build/libs/MeinServer-1.0.0.jar` in den Unterordner
+   `plugins/` deines Servers.
+2. Server neu starten (oder im laufenden Server `reload` eingeben).
+3. Starte den **Minecraft-Client in Version 1.8.8** (im Launcher als Profil
+   anlegen) und verbinde dich:
+   `Mehrspieler → Direkt verbinden → Adresse: localhost → Beitreten`.
+4. Probiere im Spiel `/hallo` und `/heile` aus.
+
+> Server in der Konsole sauber stoppen: `stop` eingeben (nicht das Fenster
+> einfach schließen).
 
 ---
 
@@ -113,12 +119,12 @@ minecraft-server/
 
 ---
 
-## 5. Ideen für die nächsten Schritte
+## 5. Ideen für die nächsten Schritte (typisch für 1.8-PvP-Server)
 
 - `/spawn` — teleportiert zum Welt-Spawn
-- `/fly` — Flugmodus an/aus
-- Ein Willkommens-Item beim ersten Beitreten geben
-- Ein einfaches Punkte-/Economy-System
-- Ein kleines Minispiel
+- `/kit` — gibt ein PvP-Set (Rüstung, Schwert, Goldäpfel)
+- Kein Hunger-/kein Schaden-Schutz in der Spawn-Zone
+- Ein einfaches Kill-/Punkte-System
+- Soup-PvP oder ein kleines Arena-Minispiel
 
 Sag einfach, was als Nächstes kommen soll — wir bauen es Schritt für Schritt. 🚀

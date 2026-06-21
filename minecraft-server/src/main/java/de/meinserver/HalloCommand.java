@@ -1,7 +1,6 @@
 package de.meinserver;
 
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -17,9 +16,8 @@ public class HalloCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         // "sender" ist derjenige, der den Befehl ausgeführt hat
         // (ein Spieler oder die Server-Konsole).
-        sender.sendMessage(
-                Component.text("Hallo und willkommen auf MeinServer!", NamedTextColor.GREEN)
-        );
+        // ChatColor.GREEN färbt den Text grün ein.
+        sender.sendMessage(ChatColor.GREEN + "Hallo und willkommen auf MeinServer!");
 
         // true bedeutet: Befehl wurde erfolgreich verarbeitet.
         return true;

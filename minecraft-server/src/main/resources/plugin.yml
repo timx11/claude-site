@@ -3,9 +3,7 @@ name: MeinServer
 version: '${version}'
 # Der Pfad zur Haupt-Klasse (Paket + Klassenname)
 main: de.meinserver.MeinServerPlugin
-# Für welche Minecraft-Version das Plugin gedacht ist
-api-version: '1.21'
-description: Mein erster eigener Minecraft-Server
+description: Mein erster eigener Minecraft-Server (1.8.8)
 authors: [DeinName]
 
 # Hier werden alle Befehle (Commands) angemeldet

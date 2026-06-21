@@ -1,9 +1,6 @@
 plugins {
     // Java-Unterstützung
     java
-    // "run-paper" gibt uns den Befehl ./gradlew runServer, der automatisch
-    // einen Paper-Server herunterlädt und dein Plugin darauf startet.
-    id("xyz.jpenilla.run-paper") version "2.3.1"
 }
 
 // Gruppen-/Versionsangaben für dein Projekt
@@ -13,23 +10,28 @@ version = "1.0.0"
 repositories {
     // Hier sucht Gradle nach Bibliotheken
     mavenCentral()
-    // Das offizielle Paper-Repository (enthält die Paper-API)
-    maven("https://repo.papermc.io/repository/maven-public/")
+    // Das Spigot-Repository (enthält die Spigot-API für Minecraft 1.8.8)
+    maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
+    // Wird von der Spigot-API teilweise mitbenötigt
+    maven("https://oss.sonatype.org/content/repositories/snapshots/")
 }
 
 dependencies {
-    // Die Paper-API: damit kannst du Spieler, Blöcke, Events usw. ansprechen.
+    // Die Spigot-API für Minecraft 1.8.8: damit kannst du Spieler, Blöcke,
+    // Events usw. ansprechen.
     // "compileOnly" = nur zum Programmieren nötig, der Server bringt sie selbst mit.
-    compileOnly("io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT")
-}
-
-java {
-    // Minecraft 1.21 braucht Java 21
-    toolchain.languageVersion.set(JavaLanguageVersion.of(21))
+    compileOnly("org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT")
 }
 
 tasks {
-    // Dateien wie plugin.yml mit UTF-8 verarbeiten (für Umlaute/Emojis)
+    withType<JavaCompile> {
+        // Minecraft 1.8.8 läuft auf Java 8 -> wir erzeugen Java-8-Bytecode.
+        options.release.set(8)
+        // Umlaute/Sonderzeichen korrekt einlesen
+        options.encoding = "UTF-8"
+    }
+
+    // Dateien wie plugin.yml mit UTF-8 verarbeiten
     processResources {
         filteringCharset = "UTF-8"
         // Ersetzt ${version} in der plugin.yml durch die Version oben
@@ -38,10 +40,5 @@ tasks {
         filesMatching("plugin.yml") {
             expand(props)
         }
-    }
-
-    // Konfiguration für ./gradlew runServer (Test-Server)
-    runServer {
-        minecraftVersion("1.21.4")
     }
 }
