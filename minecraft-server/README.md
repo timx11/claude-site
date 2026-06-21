@@ -22,6 +22,34 @@ Dieses Grundgerüst bringt schon mit:
 
 ---
 
+## ⚡ Schnellstart (Testserver über localhost)
+
+Der Testserver läuft auf **deinem eigenen PC**. „localhost" bedeutet genau
+diesen Rechner — du verbindest dich also mit dem Server, der bei dir läuft.
+
+Einmalig vorbereiten:
+
+1. **Java 8** installieren (siehe Punkt 0 unten).
+2. **Spigot 1.8.8** herunterladen: <https://getbukkit.org/download/spigot>
+   und die Datei (z. B. `spigot-1.8.8.jar`) in den Unterordner **`server/`**
+   legen. Den Ordner `server/` legt das Start-Skript beim ersten Lauf an —
+   du kannst ihn aber auch jetzt schon selbst erstellen.
+
+Starten:
+
+- **Windows:** Doppelklick auf **`start-server.bat`**
+- **Mac/Linux:** im Terminal `./start-server.sh`
+
+Das Skript baut das Plugin, richtet den Server ein, akzeptiert die EULA und
+startet ihn. Dann im **Minecraft-Client 1.8.8**:
+*Mehrspieler → Direkt verbinden → `localhost` → Beitreten*.
+
+> Server stoppen: in der schwarzen Konsole `stop` eintippen (Enter).
+
+Die ausführliche Erklärung jedes Schritts steht weiter unten.
+
+---
+
 ## 0. Was du einmalig installieren musst
 
 1. **Java 8 (JDK)** — z. B. von [Adoptium / Temurin 8](https://adoptium.net/temurin/releases/?version=8).
