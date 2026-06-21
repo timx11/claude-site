@@ -1,0 +1,8 @@
+# Hier speichert das Plugin die Teleport-Orte des Kompass-Menüs.
+# Du musst hier nichts von Hand eintragen!
+# Setze die Orte bequem im Spiel (als Admin/Operator):
+#   /setspawn   -> setzt "Spawn" auf deine aktuelle Position
+#   /setcores   -> setzt "Cores" auf deine aktuelle Position
+orte:
+  spawn:
+  cores:

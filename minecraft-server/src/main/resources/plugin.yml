@@ -14,3 +14,12 @@ commands:
   heile:
     description: Heilt dich vollständig
     usage: /heile
+  kompass:
+    description: Gibt dir den Menü-Kompass erneut
+    usage: /kompass
+  setspawn:
+    description: Setzt den Spawn-Ort auf deine Position (nur Admin)
+    usage: /setspawn
+  setcores:
+    description: Setzt den Cores-Ort auf deine Position (nur Admin)
+    usage: /setcores

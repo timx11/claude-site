@@ -7,6 +7,12 @@ in Java — genau so machen es echte Server.
 
 Dieses Grundgerüst bringt schon mit:
 
+- **Menü-Kompass** — jeder Spieler bekommt beim Beitreten einen Kompass.
+  Rechtsklick öffnet ein Menü mit den Feldern **Spawn** und **Cores**; ein Klick
+  teleportiert dorthin.
+- `/setspawn` / `/setcores` — Admin setzt die beiden Teleport-Orte (gespeichert
+  in `config.yml`)
+- `/kompass` — gibt dir den Kompass erneut
 - `/hallo` — begrüßt den Spieler
 - `/heile` — füllt Leben und Hunger wieder auf
 - Eine Willkommensnachricht, wenn ein Spieler den Server betritt
@@ -94,6 +100,20 @@ Anders als bei neueren Versionen gibt es für 1.8.8 keinen
 
 ---
 
+## 3b. Den Kompass benutzen (Spawn & Cores)
+
+1. Geh als **Operator** (Admin) im Spiel an die Stelle, die der Spawn sein soll,
+   und tippe `/setspawn`. Dann an die Cores-Stelle und `/setcores`.
+   (Op wirst du in der Server-Konsole mit `op DEINNAME`.)
+2. Jetzt hat jeder beim Beitreten einen **Kompass** im ersten Slot.
+   **Rechtsklick** öffnet das Menü.
+3. Im Menü auf **Spawn** (Smaragd) oder **Cores** (Leuchtfeuer) klicken →
+   du wirst sofort teleportiert.
+
+> Verloren? Mit `/kompass` bekommst du einen neuen.
+
+---
+
 ## 4. Projektstruktur (was liegt wo?)
 
 ```
@@ -103,12 +123,17 @@ minecraft-server/
 ├─ gradlew / gradlew.bat   ← Startet Gradle (kein Extra-Install nötig)
 └─ src/main/
    ├─ java/de/meinserver/
-   │  ├─ MeinServerPlugin.java  ← Start/Stop, meldet Befehle & Events an
+   │  ├─ MeinServerPlugin.java  ← Start/Stop, meldet Befehle & Events an, speichert Orte
    │  ├─ HalloCommand.java      ← Befehl /hallo
    │  ├─ HeileCommand.java      ← Befehl /heile
+   │  ├─ KompassCommand.java    ← Befehl /kompass (gibt den Kompass)
+   │  ├─ OrtCommand.java        ← Befehle /setspawn und /setcores
+   │  ├─ KompassMenue.java      ← baut den Kompass und das Auswahl-Menü
+   │  ├─ KompassListener.java   ← öffnet das Menü & teleportiert beim Klick
    │  └─ SpielerListener.java   ← reagiert auf "Spieler betritt Server"
    └─ resources/
-      └─ plugin.yml             ← Name des Plugins + Liste der Befehle
+      ├─ plugin.yml             ← Name des Plugins + Liste der Befehle
+      └─ config.yml             ← Speicher für Spawn-/Cores-Orte
 ```
 
 **Faustregel zum Erweitern:**

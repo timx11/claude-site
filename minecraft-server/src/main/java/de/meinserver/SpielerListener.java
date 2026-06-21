@@ -22,5 +22,8 @@ public class SpielerListener implements Listener {
 
         // Die Nachricht, die alle anderen Spieler im Chat sehen.
         event.setJoinMessage(ChatColor.YELLOW + spieler.getName() + " ist dem Server beigetreten.");
+
+        // Den Menü-Kompass in den ersten Slot (Slot 0) legen.
+        spieler.getInventory().setItem(0, KompassMenue.erstelleKompass());
     }
 }
